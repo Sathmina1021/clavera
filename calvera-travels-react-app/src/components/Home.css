@@ -1,0 +1,166 @@
+/* Add any home-specific styles here */
+
+.welcome-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.welcome-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.welcome-content h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.sri-lanka-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.sri-lanka-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.sri-lanka-content h2 {
+    font-size: 2.8rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.sri-lanka-content h3 {
+    font-size: 2rem;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.sri-lanka-content p {
+    font-size: 1.1rem;
+    color: #495057;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.discover-wonders-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.discover-wonders-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.discover-wonders-content h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.discover-wonders-content p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.map-placeholder {
+    border: 5px solid #007bff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.map-placeholder:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 123, 255, 0.3);
+}
+
+.map-placeholder img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.map-caption {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+.discover-wonders-content .btn-primary {
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.discover-wonders-content .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.why-choose-us-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.why-choose-us-section .section-title {
+    margin-bottom: 50px;
+    color: #343a40;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.feature-item {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item i {
+    font-size: 3rem;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.feature-item h3 {
+    font-size: 1.5rem;
+    color: #343a40;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.6;
+}
