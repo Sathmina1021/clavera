@@ -11,15 +11,60 @@ import './Home.css';
 const Home = () => {
     return (
         <>
-            <Hero />
+            <Hero />  
 
             <Fade direction="up" triggerOnce>
                 <section className="welcome-section">
+                    {/* Decorative Floating Circles */}
+                    <div className="welcome-decorative-circle circle-top-right"></div>
+                    <div className="welcome-decorative-circle circle-bottom-left"></div>
+                    
                     <div className="container">
                         <div className="welcome-content">
-                            <h2>Welcome to Calvera Travels — your journey begins here!</h2>
-                            <p>At Calvera Travel, we believe every journey tells a story. From the ancient wonders of Sri Lanka's Cultural Triangle to the golden beaches and misty highlands, we craft unforgettable experiences that go beyond travel – they inspire.</p>
-                            <p>Whether you dream of exploring iconic landmarks, relaxing in hidden retreats, or discovering authentic local culture, our dedicated team is here to guide you every step of the way.</p>
+                            {/* Welcome Icon */}
+                            <div className="welcome-icon">
+                                <i className="fas fa-compass"></i>
+                            </div>
+                            
+                            <h2>
+                                Welcome to <span className="highlight">Calvera Travels</span> — your journey begins here!
+                            </h2>
+                            
+                            <p>
+                                At Calvera Travel, we believe every journey tells a story. From the ancient wonders 
+                                of Sri Lanka's Cultural Triangle to the golden beaches and misty highlands, we craft 
+                                unforgettable experiences that go beyond travel.
+                            </p>
+                            
+                            <p>
+                                Whether you dream of exploring iconic landmarks, relaxing in hidden retreats, or 
+                                discovering authentic local culture, our dedicated team is here to guide you every 
+                                step of the way.
+                            </p>
+
+                            {/* Stats Section */}
+                            <div className="welcome-stats">
+                                <div className="stat-item">
+                                    <span className="stat-number">1000+</span>
+                                    <span className="stat-label">Happy Travelers</span>
+                                </div>
+                                <div className="stat-item">
+                                    <span className="stat-number">20+</span>
+                                    <span className="stat-label">Destinations</span>
+                                </div>
+                                <div className="stat-item">
+                                    <span className="stat-number">10+</span>
+                                    <span className="stat-label">Years Experience</span>
+                                </div>
+                            </div>
+
+                            {/* CTA Button */}
+                            <div className="welcome-cta">
+                                <Link to="/tours" className="btn-explore">
+                                    <span>Start Your Journey</span>
+                                    <i className="fas fa-arrow-right"></i>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -31,8 +76,21 @@ const Home = () => {
                         <div className="sri-lanka-content">
                             <h2>Where Every Journey Feels Like Home</h2>
                             <h3>About Sri Lanka</h3>
-                            <p>Nestled in the heart of the Indian Ocean, Sri Lanka is a tropical paradise that captures hearts with its natural beauty and cultural charm. Known as the “Pearl of the Indian Ocean,” this island offers a perfect blend of golden beaches, misty mountains, and ancient heritage. From the lush tea gardens of Nuwara Eliya to the wildlife adventures in Yala National Park, every corner of Sri Lanka tells a story waiting to be discovered.</p>
-                            <p>Experience the colorful traditions, taste the spices that make Sri Lankan cuisine world-famous, and feel the genuine warmth of its people. Explore ancient cities like Anuradhapura and Polonnawura, surf the waves in Arugam Bay, or relax by the calm waters of Mirissa and Bentota. Whether you seek adventure, relaxation, or spiritual discovery, Sri Lanka promises unforgettable moments and lifelong memories.</p>
+                            <p>
+                                Nestled in the heart of the Indian Ocean, Sri Lanka is a tropical paradise that 
+                                captures hearts with its natural beauty and cultural charm. Known as the "Pearl of 
+                                the Indian Ocean," this island offers a perfect blend of golden beaches, misty 
+                                mountains, and ancient heritage. From the lush tea gardens of Nuwara Eliya to the 
+                                wildlife adventures in Yala National Park, every corner of Sri Lanka tells a story 
+                                waiting to be discovered.
+                            </p>
+                            <p>
+                                Experience the colorful traditions, taste the spices that make Sri Lankan cuisine 
+                                world-famous, and feel the genuine warmth of its people. Explore ancient cities like 
+                                Anuradhapura and Polonnaruwa, surf the waves in Arugam Bay, or relax by the calm 
+                                waters of Mirissa and Bentota. Whether you seek adventure, relaxation, or spiritual 
+                                discovery, Sri Lanka promises unforgettable moments and lifelong memories.
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -43,10 +101,18 @@ const Home = () => {
                     <div className="container">
                         <div className="discover-wonders-content">
                             <h2>Discover the Wonders of Sri Lanka</h2>
-                            <p>Embark on an unforgettable journey through Sri Lanka with our handpicked destinations. Each spot on the map reveals a unique story — from golden beaches and ancient cities to lush mountains and cultural wonders. Let Calvera Travels guide you through the island’s most beautiful and inspiring places.</p>
+                            <p>
+                                Embark on an unforgettable journey through Sri Lanka with our handpicked destinations. 
+                                Each spot on the map reveals a unique story — from golden beaches and ancient cities 
+                                to lush mountains and cultural wonders. Let Calvera Travels guide you through the 
+                                island's most beautiful and inspiring places.
+                            </p>
                             <div className="map-placeholder">
-                                <img src="https://i.ibb.co/Qf10111/photo-1501785888041-af3ef285b470-ixlib-rb-4-0.jpg" alt="Map of Sri Lankan Destinations" />
-                                <p className="map-caption">Map (Mark Our 20 Destinations)</p>
+                                <img 
+                                    src="https://i.ibb.co/Qf10111/photo-1501785888041-af3ef285b470-ixlib-rb-4-0.jpg" 
+                                    alt="Map of Sri Lankan Destinations" 
+                                />
+                                <p className="map-caption">Explore Our 20 Handpicked Destinations</p>
                             </div>
                             <Link to="/destination" className="btn btn-primary mt-4">
                                 Explore All Destinations

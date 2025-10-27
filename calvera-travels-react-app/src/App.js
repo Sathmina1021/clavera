@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
-import CTA from './components/CTA';
 import Footer from './components/Footer';
+import CTA from './components/CTA';
 import Destination from './components/Destination';
 import AboutUs from './components/AboutUs';
 import Tours from './components/Tours';
@@ -24,6 +24,7 @@ function App() {
       <div className="App">
         <Header/>
           <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Destination" element={< Destination/>} />
           <Route path="/AboutUs" element={<AboutUs />} />
