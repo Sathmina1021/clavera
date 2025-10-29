@@ -1,0 +1,33 @@
+.activities-experiences-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.activity-item {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.activity-item:hover {
+    transform: translateY(-10px);
+}
+
+.activity-item i {
+    font-size: 3rem;
+    color: #ffc107;
+    margin-bottom: 15px;
+}
+
+.activity-item h3 {
+    font-size: 1.2rem;
+}

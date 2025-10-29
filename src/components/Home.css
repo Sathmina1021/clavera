@@ -1,0 +1,362 @@
+/* ==================== WELCOME SECTION ==================== */
+.welcome-section {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.welcome-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.15), transparent 50%);
+    pointer-events: none;
+    animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+.welcome-content {
+  position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-icon {
+    font-size: 60px;
+    color: #ff6b00;
+    margin-bottom: 30px;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.welcome-content h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-content .highlight {
+    color: #ff6b00;
+    position: relative;
+}
+
+.welcome-content p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-stats {
+  display: flex;
+  justify-content: center;
+    gap: 60px;
+    margin: 50px 0;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+    font-size: 40px;
+    color: #ff6b00;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+
+.btn-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+}
+
+.btn-explore:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 107, 0, 0.6);
+    background: linear-gradient(135deg, #ff8c00, #ff6b00);
+}
+
+/* ==================== SRI LANKA SECTION ==================== */
+.sri-lanka-section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.sri-lanka-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+}
+
+.sri-lanka-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.sri-lanka-content h3 {
+    font-size: 1.8rem;
+    color: #ff6b00;
+    margin-bottom: 25px;
+}
+
+.sri-lanka-content p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ==================== DISCOVER SECTION ==================== */
+.discover-wonders-section {
+    padding: 100px 0;
+  position: relative;
+    color: #ffffff;
+}
+
+.discover-header {
+  text-align: center;
+    margin-bottom: 30px;
+}
+
+.discover-icon {
+    font-size: 50px;
+    color: #ff6b00;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.discover-wonders-content h2 {
+    font-size: 2.8rem;
+  font-weight: 700;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.discover-wonders-content > p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 50px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.map-placeholder {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.map-frame {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.map-frame img {
+    max-width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.map-frame:hover img {
+    transform: scale(1.05);
+}
+
+.map-caption {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #ff6b00;
+  font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.discover-wonders-content .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    color: white;
+    text-decoration: none;
+  border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+  transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+    margin-top: 30px;
+}
+
+.discover-wonders-content .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 107, 0, 0.6);
+}
+
+/* ==================== WHY CHOOSE US SECTION ==================== */
+.why-choose-us-section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-subtitle {
+    display: inline-block;
+    color: #ff6b00;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b00, #ff8c00);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 107, 0, 0.2);
+    border-color: #ff6b00;
+}
+
+.feature-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+}
+
+.feature-icon-wrapper i {
+    font-size: 35px;
+    color: white;
+}
+
+.feature-item h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.feature-item p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .welcome-content h1 { font-size: 2.2rem; }
+  .welcome-content p { font-size: 1rem; }
+  .cta-button { padding: 12px 28px; font-size: 1rem; }
+}
