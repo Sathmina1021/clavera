@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import Hero from "./Hero"; // Import the Hero component
 import "./PlanYourTrip.css";
 import tourPackages from "../data/tourPackages";
 
-
 const PlanYourTrip = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({});
+
+  // Hero background images for Plan Your Trip page
+  const heroImages = [
+    "/images/PlanYourTrip/plantrip1.jpg",
+    "/images/PlanYourTrip/plantrip2.jpg",
+    "/images/PlanYourTrip/plantrip3.jpg",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,34 +41,46 @@ const PlanYourTrip = () => {
 
   return (
     <div className="plan-trip-page">
-      <div className="hero">
-        <h1>Plan Your Dream Trip</h1>
-        <p>
-          Fill out this form and our travel experts will craft the perfect
-          itinerary for you.
-        </p>
-      </div>
+      {/* Hero Section with custom backgrounds */}
+      <Hero 
+        images={heroImages}
+        title="Plan Your Dream Trip"
+        highlightText="Tailored Just For You"
+        subtitle="Fill out the form and our travel experts will craft the perfect itinerary"
+        badge="Personalized Planning"
+        primaryButton={{ 
+          text: "Start Planning", 
+          link: "#travel-form", 
+          icon: "fa-clipboard-list" 
+        }}
+        secondaryButton={{ 
+          text: "View Packages", 
+          link: "/tours", 
+          icon: "fa-gift" 
+        }}
+        showFeatures={true}
+        showScrollIndicator={true}
+      />
 
       <div className="container">
         <div className="section">
           <h2 className="section-title">Your Travel Preferences</h2>
 
-          
-            <div className="tour-scroll-bar">
-              <div className="scroll-content">
-                {tourPackages.map((tour) => (
-                  <div key={tour.id} className="tour-card">
-                    <img src={tour.image} alt={tour.title} />
-                    <div className="tour-info">
-                      <h4>{tour.title}</h4>
-                      <p>{tour.description}</p>
-                      <span className="price">{tour.price}</span>
-                    </div>
+          {/* Tour Packages Scroll Bar */}
+          <div className="tour-scroll-bar">
+            <div className="scroll-content">
+              {tourPackages.map((tour) => (
+                <div key={tour.id} className="tour-card">
+                  <img src={tour.image} alt={tour.title} />
+                  <div className="tour-info">
+                    <h4>{tour.title}</h4>
+                    <p>{tour.description}</p>
+                    <span className="price">{tour.price}</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-
+          </div>
 
           {isSubmitted ? (
             <div className="success-message">
@@ -76,7 +94,7 @@ const PlanYourTrip = () => {
               </p>
             </div>
           ) : (
-            <form id="travelForm" onSubmit={handleSubmit}>
+            <form id="travel-form" onSubmit={handleSubmit}>
               {/* 1. Trip Type */}
               <div className="form-card">
                 <h3>What type of trip are you planning?</h3>
@@ -252,11 +270,11 @@ const PlanYourTrip = () => {
                 <div className="terms-box">
                   <label>
                     <input type="checkbox" name="agreePrivacy" required /> I agree
-                    to the <a href="#">Privacy Policy</a>
+                    to the <a href="/privacy-policy">Privacy Policy</a>
                   </label>
                   <label>
                     <input type="checkbox" name="agreeTerms" required /> I agree to
-                    the <a href="#">Terms & Conditions</a>
+                    the <a href="/terms-and-condition">Terms & Conditions</a>
                   </label>
                 </div>
               </div>

@@ -1,0 +1,515 @@
+/* ===================================================================
+   BLOG HERO STYLESHEET
+   Author: Gemini
+   Description: A modern, creative, and professional hero section design.
+   =================================================================== */
+
+:root {
+  /* Color Palette */
+  --color-primary: #00f2fe; /* Vibrant Cyan */
+  --color-secondary: #a450e6; /* Soft Purple */
+  --color-background: #0d0221; /* Deep Space Blue */
+  --color-text: #f0f0f0;
+  --color-text-muted: #a0a0a0;
+  --color-glow: rgba(0, 242, 254, 0.5);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-overlay: linear-gradient(
+    160deg,
+    rgba(13, 2, 33, 0.85) 0%,
+    rgba(13, 2, 33, 0.7) 40%,
+    rgba(84, 28, 138, 0.6) 100%
+  );
+
+  /* Animation */
+  --transition-speed-fast: 0.3s;
+  --transition-speed-normal: 0.6s;
+  --transition-speed-slow: 1s;
+}
+
+/* ========================================
+   HERO SECTION - MAIN CONTAINER
+   ======================================== */
+.page-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  perspective: 1000px;
+}
+
+/* ========================================
+   BACKGROUND IMAGES WITH KEN BURNS EFFECT
+   ======================================== */
+.hero-backgrounds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity var(--transition-speed-slow) ease-in-out;
+}
+
+.hero-background.active {
+  opacity: 1;
+  animation: kenBurns 20s infinite;
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.2) translate(1%, -2%);
+  }
+  100% {
+    transform: scale(1.1) translate(0, 0);
+  }
+}
+
+/* ========================================
+   DARK OVERLAY
+   ======================================== */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-overlay);
+  z-index: 2;
+}
+
+/* ========================================
+   ANIMATED DECORATIONS (AURORA)
+   ======================================== */
+.hero-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.decoration-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  animation: aurora-float 30s infinite ease-in-out;
+}
+
+.aurora-1 {
+  width: 500px;
+  height: 500px;
+  top: -20%;
+  left: -10%;
+  background: var(--color-primary);
+  animation-delay: 0s;
+}
+
+.aurora-2 {
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  right: -20%;
+  background: var(--color-secondary);
+  animation-delay: 8s;
+}
+
+.aurora-3 {
+  width: 300px;
+  height: 300px;
+  bottom: -30%;
+  left: 20%;
+  background: #ff3b81;
+  animation-delay: 15s;
+}
+
+@keyframes aurora-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(80px, -60px) scale(1.2);
+  }
+}
+
+/* ========================================
+   HERO CONTENT
+   ======================================== */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: var(--color-text);
+  max-width: 950px;
+  padding: 0 20px;
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================
+   HERO BADGE
+   ======================================== */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s backwards;
+}
+
+.hero-badge i {
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+/* ========================================
+   HERO TITLE
+   ======================================== */
+.hero-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 25px;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s backwards;
+}
+
+.hero-title .highlight {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+}
+
+/* ========================================
+   HERO SUBTITLE
+   ======================================== */
+.hero-subtitle {
+  font-size: 1.4rem;
+  font-weight: 300;
+  margin-bottom: 45px;
+  color: var(--color-text-muted);
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s backwards;
+}
+
+/* ========================================
+   HERO ACTIONS (BUTTONS)
+   ======================================== */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 55px;
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 0.8s backwards;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all var(--transition-speed-fast) ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-hero:hover {
+  transform: translateY(-4px);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-background);
+  box-shadow: 0 10px 25px rgba(0, 242, 254, 0.2), 0 5px 15px rgba(164, 80, 230, 0.2);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.3), 0 8px 20px rgba(164, 80, 230, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ========================================
+   FEATURE PILLS
+   ======================================== */
+.hero-features {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: content-fade-in 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) 1s backwards;
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  padding: 12px 25px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-speed-fast) ease;
+}
+
+.feature-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.feature-pill i {
+  font-size: 18px;
+  color: var(--color-primary);
+}
+
+/* ========================================
+   SCROLL INDICATOR
+   ======================================== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: content-fade-in 1s ease-out 1.5s forwards, bounce-indicator 2.5s infinite 3s;
+}
+
+.scroll-mouse {
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+  position: relative;
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-wheel-anim 2s infinite;
+}
+
+@keyframes scroll-wheel-anim {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+@keyframes bounce-indicator {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* ========================================
+   IMAGE INDICATORS (DOTS)
+   ======================================== */
+.hero-indicators {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  z-index: 10;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-speed-fast) ease;
+  position: relative;
+  padding: 0;
+  outline: none;
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.2);
+}
+
+.indicator-dot.active {
+  background: var(--color-primary);
+  transform: scale(1.3);
+  box-shadow: 0 0 15px var(--color-glow);
+}
+
+/* ========================================
+   NAVIGATION ARROWS
+   ======================================== */
+.hero-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  font-size: 22px;
+  cursor: pointer;
+  transition: all var(--transition-speed-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.hero-nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%) scale(1.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.arrow-prev {
+  left: 40px;
+}
+
+.arrow-next {
+  right: 40px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  .hero-nav-arrow {
+    width: 45px;
+    height: 45px;
+  }
+  .arrow-prev { left: 25px; }
+  .arrow-next { right: 25px; }
+  .hero-indicators { right: 30px; }
+}
+
+@media (max-width: 768px) {
+  .page-hero { min-height: 600px; }
+  .hero-title { font-size: 2.8rem; }
+  .hero-subtitle { font-size: 1.1rem; margin-bottom: 40px; }
+  .hero-actions { flex-direction: column; gap: 18px; align-items: center; }
+  .btn-hero { width: 100%; max-width: 320px; justify-content: center; }
+  .hero-features { gap: 12px; }
+  .feature-pill { padding: 10px 20px; font-size: 13px; }
+  .hero-nav-arrow { display: none; }
+  .hero-indicators {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 30px;
+  }
+  .scroll-indicator { display: none; }
+  .decoration-aurora { filter: blur(120px); }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2.2rem; }
+  .hero-badge { font-size: 13px; padding: 10px 22px; }
+  .hero-features { flex-direction: column; align-items: center; }
+  .feature-pill { width: 100%; max-width: 250px; justify-content: center; }
+}
