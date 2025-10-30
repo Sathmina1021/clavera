@@ -5,7 +5,7 @@ import Hero from './Hero';
 import PopularTours from './PopularTours';
 import FeaturedTours from './FeaturedTours';
 import DiscountPackages from './DiscountPackages';
-import ActivitiesExperiences from './ActivitiesExperiences';
+
 import './Home.css';
 
 const Home = () => {
@@ -291,9 +291,7 @@ const Home = () => {
             <Fade direction="up" triggerOnce>
                 <DiscountPackages />
             </Fade>
-            <Fade direction="up" triggerOnce>
-                <ActivitiesExperiences />
-            </Fade>
+
         </>
     );
 };

@@ -16,6 +16,7 @@ const Hero = ({
 }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [scrolled, setScrolled] = useState(false);
+    const [parallaxOffset, setParallaxOffset] = useState(0);
     
     // Default images if none provided
     const defaultImages = [
@@ -31,6 +32,7 @@ const Hero = ({
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
             setScrolled(scrollPosition > 50);
+            setParallaxOffset(scrollPosition * 0.5); // Creates a parallax effect
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -61,7 +63,7 @@ const Hero = ({
     return (
         <div className={`page-hero ${scrolled ? 'scrolled' : ''}`}>
             {/* Background Images with Crossfade */}
-            <div className="hero-backgrounds">
+            <div className="hero-backgrounds" style={{ transform: `translateY(${parallaxOffset}px)` }}>
                 {backgroundImages.map((image, index) => (
                     <div
                         key={index}
