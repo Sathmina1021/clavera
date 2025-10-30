@@ -8,6 +8,8 @@ import Tours from './components/Tours';
 import Contact from './components/Contact';
 import PlanYourTrip from './components/PlanYourTrip';
 import Blog from './components/Blog';
+import GalleFortBlog from './components/GalleFortBlog';
+import UnawatunaBlog from './components/UnawatunaBlog';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import RulesAndRegulation from './components/RulesAndRegulation';
 import TermsAndCondition from './components/TermsAndCondition';
@@ -28,7 +30,9 @@ function App() {
             <Route path="/Tours" element={<Tours />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Planyourtrip" element={<PlanYourTrip />} />
-            <Route path="/Blog" element={<Blog />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/gallefort" element={<GalleFortBlog />} />
+            <Route path="/unawatuna" element={<UnawatunaBlog />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/rules-and-regulation" element={<RulesAndRegulation />} />
             <Route path="/terms-and-condition" element={<TermsAndCondition />} />
