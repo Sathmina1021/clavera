@@ -1,133 +1,439 @@
-/* ==================== WELCOME SECTION ==================== */
+/* ======================================= */
+/* GLOBAL & ROOT STYLES                    */
+/* ======================================= */
+
+:root {
+    --primary-color: #ff6b00;
+    --primary-hover: #ff8c00;
+    --dark-bg: #1a1a1a;
+    --light-text: #ffffff;
+    --dark-text: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Recommended: Add this font to your index.html */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ======================================= */
+/* NEW WELCOME SECTION (CREATIVE)          */
+/* ======================================= */
+
+/* --- Main Section Container --- */
 .welcome-section {
     padding: 100px 0;
     position: relative;
     overflow: hidden;
-    color: #ffffff;
+    color: var(--light-text);
+    background-color: var(--dark-bg); /* Fallback */
+    
+    /* This uses the variable set in Home.js */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                      var(--welcome-background-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
-.welcome-overlay {
+/* --- Content Wrapper --- */
+.welcome-content {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 15px;
+}
+
+/* --- Welcome Icon --- */
+.welcome-icon-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-icon {
+    width: 90px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: var(--primary-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.icon-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--primary-color), transparent 60%);
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    animation: pulseGlow 3s infinite ease-in-out;
+    z-index: 1;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.7;
+    }
+}
+
+/* --- Headings and Text --- */
+.welcome-main-title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+}
+
+.welcome-main-title .highlight {
+    color: var(--primary-color);
+    text-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
+}
+
+.welcome-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.subtitle-icon {
+    color: #ffc107;
+    animation: sparkle 1.5s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* --- Description Box --- */
+.welcome-description {
+    margin-bottom: 40px;
+}
+
+.flow-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #ddd;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+}
+
+.text-glow-effect {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 0, 0.2), transparent);
+    transform: skewX(-25deg);
+    animation: textGlow 8s infinite linear;
+}
+
+@keyframes textGlow {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* --- Stats Flow Section --- */
+.welcome-stats-flow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 15px;
+    margin-bottom: 50px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-flow-item {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 25px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    min-width: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-flow-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stat-glow-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    transform: translate(-50%, -50%);
+    opacity: 0.1;
+    z-index: 1;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.stat-gradient-1 { background: linear-gradient(135deg, #007bff, #0056b3); }
+.stat-gradient-1 .stat-glow-bg { background: radial-gradient(circle, #007bff, transparent 70%); }
+
+.stat-gradient-2 { background: linear-gradient(135deg, #28a745, #1e7e34); }
+.stat-gradient-2 .stat-glow-bg { background: radial-gradient(circle, #28a745, transparent 70%); }
+
+.stat-gradient-3 { background: linear-gradient(135deg, #ffc107, #d39e00); }
+.stat-gradient-3 .stat-glow-bg { background: radial-gradient(circle, #ffc107, transparent 70%); }
+
+
+.stat-flow-icon {
+    font-size: 2.5rem;
+    color: var(--light-text);
+    z-index: 2;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.stat-flow-content {
+    z-index: 2;
+    text-align: left;
+}
+
+.stat-flow-number {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1.1;
+}
+
+.stat-flow-label {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    display: block;
+}
+
+.stat-divider {
+    width: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    align-self: stretch;
+}
+
+/* --- Glass CTA Button --- */
+.welcome-cta-center {
+    margin-bottom: 50px;
+}
+
+.glass-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--light-text);
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 107, 0, 0.8);
+    background: rgba(255, 107, 0, 0.2);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 3;
+}
+
+.btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.glass-button:hover {
+    color: var(--light-text);
+    background: rgba(255, 107, 0, 0.4);
+    box-shadow: 0 0 25px rgba(255, 107, 0, 0.5);
+}
+
+.glass-button:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* Gradient background */
+.btn-bg-gradient {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(255, 107, 0, 0.15), transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.15), transparent 50%);
-    pointer-events: none;
-    animation: pulse 8s ease-in-out infinite;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.8; }
+.glass-button:hover .btn-bg-gradient {
+    opacity: 1;
 }
 
-.welcome-content {
-  position: relative;
+/* Shine effect */
+.btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-30deg);
+    animation: shine 6s infinite linear;
     z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
 }
 
-.welcome-icon {
-    font-size: 60px;
-    color: #ff6b00;
-    margin-bottom: 30px;
-    animation: rotate 20s linear infinite;
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.welcome-content h2 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.welcome-content .highlight {
-    color: #ff6b00;
-    position: relative;
-}
-
-.welcome-content p {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.welcome-stats {
-  display: flex;
-  justify-content: center;
-    gap: 60px;
-    margin: 50px 0;
+/* --- Trust Badges --- */
+.trust-badges-colorful {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
-.stat-item {
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.stat-icon {
-    font-size: 40px;
-    color: #ff6b00;
-    margin-bottom: 10px;
-}
-
-.stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    display: block;
-    font-size: 1rem;
-    color: #e0e0e0;
-}
-
-.btn-explore {
-    display: inline-flex;
+.trust-badge {
+    display: flex;
     align-items: center;
     gap: 10px;
-    padding: 18px 45px;
-    background: linear-gradient(135deg, #ff6b00, #ff8c00);
-    color: white;
-    text-decoration: none;
+    padding: 10px 20px;
     border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.btn-explore:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(255, 107, 0, 0.6);
-    background: linear-gradient(135deg, #ff8c00, #ff6b00);
+.trust-badge i {
+    font-size: 1.2rem;
 }
 
-/* ==================== SRI LANKA SECTION ==================== */
+.trust-badge.badge-1 { color: #00bfff; } /* Deep Sky Blue */
+.trust-badge.badge-2 { color: #32cd32; } /* Lime Green */
+.trust-badge.badge-3 { color: #ff69b4; } /* Hot Pink */
+
+
+/* --- Decorative Background Elements --- */
+.welcome-bg-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.shape {
+    position: absolute;
+    background: rgba(255, 107, 0, 0.1);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out alternate;
+}
+
+.shape-1 { width: 200px; height: 200px; top: 10%; left: 5%; animation-duration: 25s; }
+.shape-2 { width: 150px; height: 150px; bottom: 15%; right: 10%; animation-duration: 20s; animation-delay: -5s; }
+.shape-3 { width: 100px; height: 100px; top: 50%; left: 50%; animation-duration: 18s; }
+.shape-4 { width: 80px; height: 80px; top: 20%; right: 20%; animation-duration: 15s; animation-delay: -10s; }
+
+@keyframes float {
+    from { transform: translateY(0px) rotate(0deg); }
+    to { transform: translateY(-50px) rotate(90deg); }
+}
+
+.color-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: particleAnim 15s linear infinite;
+}
+
+@keyframes particleAnim {
+    from { transform: translateY(0vh) translateX(0vw) scale(0); opacity: 1; }
+    to { transform: translateY(100vh) translateX(100vw) scale(1); opacity: 0; }
+}
+
+.particle-1 { top: 5%; left: 10%; width: 10px; height: 10px; background: #ffc107; animation-delay: 0s; }
+.particle-2 { top: 15%; left: 80%; width: 8px; height: 8px; background: #00bfff; animation-delay: -3s; animation-direction: reverse; }
+.particle-3 { top: 50%; left: 50%; width: 12px; height: 12px; background: #32cd32; animation-delay: -6s; }
+.particle-4 { top: 80%; left: 20%; width: 7px; height: 7px; background: #ff69b4; animation-delay: -9s; animation-direction: reverse; }
+.particle-5 { top: 90%; left: 90%; width: 10px; height: 10px; background: var(--primary-color); animation-delay: -12s; }
+.particle-6 { top: 30%; left: 30%; width: 9px; height: 9px; background: var(--light-text); animation-delay: -15s; }
+
+
+/* ======================================= */
+/* SRI LANKA SECTION                       */
+/* ======================================= */
 .sri-lanka-section {
     padding: 100px 0;
     position: relative;
@@ -144,7 +450,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px 25px;
-    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     color: white;
     border-radius: 50px;
     font-weight: 600;
@@ -155,45 +461,47 @@
 .sri-lanka-content h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--dark-bg);
     margin-bottom: 15px;
 }
 
 .sri-lanka-content h3 {
     font-size: 1.8rem;
-    color: #ff6b00;
+    color: var(--primary-color);
     margin-bottom: 25px;
 }
 
 .sri-lanka-content p {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: #333;
+    color: var(--dark-text);
     margin-bottom: 20px;
 }
 
-/* ==================== DISCOVER SECTION ==================== */
+/* ======================================= */
+/* DISCOVER SECTION                        */
+/* ======================================= */
 .discover-wonders-section {
     padding: 100px 0;
-  position: relative;
-    color: #ffffff;
+    position: relative;
+    color: var(--light-text);
 }
 
 .discover-header {
-  text-align: center;
+    text-align: center;
     margin-bottom: 30px;
 }
 
 .discover-icon {
     font-size: 50px;
-    color: #ff6b00;
+    color: var(--primary-color);
     margin-bottom: 20px;
     display: block;
 }
 
 .discover-wonders-content h2 {
     font-size: 2.8rem;
-  font-weight: 700;
+    font-weight: 700;
     margin-bottom: 25px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -217,13 +525,14 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-  display: inline-block;
+    display: inline-block;
     border: 5px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
 
 .map-frame img {
     max-width: 100%;
+    height: auto;
     display: block;
     transition: transform 0.5s ease;
 }
@@ -235,36 +544,40 @@
 .map-caption {
     margin-top: 20px;
     font-size: 1.2rem;
-    color: #ff6b00;
-  font-weight: 600;
+    color: var(--primary-color);
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
 
-.discover-wonders-content .btn {
+/* General Button Style (for Discover Section) */
+.btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     padding: 18px 45px;
-    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     color: white;
     text-decoration: none;
-  border-radius: 50px;
+    border-radius: 50px;
     font-weight: 600;
     font-size: 1.1rem;
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
-    margin-top: 30px;
+    border: none;
+    cursor: pointer;
 }
 
-.discover-wonders-content .btn:hover {
+.btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(255, 107, 0, 0.6);
 }
 
-/* ==================== WHY CHOOSE US SECTION ==================== */
+/* ======================================= */
+/* WHY CHOOSE US SECTION                   */
+/* ======================================= */
 .why-choose-us-section {
     padding: 100px 0;
     position: relative;
@@ -277,7 +590,7 @@
 
 .section-subtitle {
     display: inline-block;
-    color: #ff6b00;
+    color: var(--primary-color);
     font-weight: 600;
     font-size: 1rem;
     text-transform: uppercase;
@@ -288,14 +601,14 @@
 .section-title {
     font-size: 2.8rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--dark-bg);
     margin-bottom: 20px;
 }
 
 .title-underline {
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #ff6b00, #ff8c00);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
     margin: 0 auto;
     border-radius: 2px;
 }
@@ -321,14 +634,14 @@
 .feature-item:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(255, 107, 0, 0.2);
-    border-color: #ff6b00;
+    border-color: var(--primary-color);
 }
 
 .feature-icon-wrapper {
     width: 80px;
     height: 80px;
     margin: 0 auto 25px;
-    background: linear-gradient(135deg, #ff6b00, #ff8c00);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -344,7 +657,7 @@
 .feature-item h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--dark-bg);
     margin-bottom: 15px;
 }
 
@@ -354,9 +667,80 @@
     line-height: 1.7;
 }
 
-/* 📱 Responsive */
+
+/* ======================================= */
+/* RESPONSIVE STYLES                       */
+/* ======================================= */
+
+@media (max-width: 992px) {
+    .welcome-main-title {
+        font-size: 2.8rem;
+    }
+    .welcome-subtitle {
+        font-size: 1.3rem;
+    }
+}
+
 @media (max-width: 768px) {
-  .welcome-content h1 { font-size: 2.2rem; }
-  .welcome-content p { font-size: 1rem; }
-  .cta-button { padding: 12px 28px; font-size: 1rem; }
+    /* Welcome Section */
+    .welcome-main-title {
+        font-size: 2.2rem;
+    }
+    .welcome-subtitle {
+        font-size: 1.1rem;
+    }
+    .flow-text {
+        font-size: 1rem;
+        padding: 20px;
+    }
+    .trust-badges-colorful {
+        gap: 10px;
+    }
+    .trust-badge {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .shape-1 { width: 100px; height: 100px; }
+    .shape-2 { width: 80px; height: 80px; }
+    
+    .stat-divider {
+        display: none;
+    }
+    .welcome-stats-flow {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Other Sections */
+    .section-title,
+    .sri-lanka-content h2,
+    .discover-wonders-content h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .welcome-main-title {
+        font-size: 1.8rem;
+    }
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+    .welcome-icon-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    .welcome-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+    }
+    .glass-button {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+    .btn-primary {
+        padding: 15px 35px;
+        font-size: 1rem;
+    }
 }

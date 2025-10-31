@@ -34,8 +34,11 @@ const Tours = () => {
         "Unwind on golden beaches under tropical sunsets",
       ],
       theme: "romantic",
-      image: "/images/Tours/Calvera-package/Honeymoon/Calvera-Couple-01.jpg",
-      hoverImage: "/images/Tours/Calvera-package/Calvera-Honeymoon/Calvera-Couple.jpg",
+      // --- CHANGE IS HERE (Paths fixed from C:\... to relative) ---
+      image:
+        "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
+      hoverImage:
+        "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
       imageAlt: "Romantic couple in Sri Lanka",
     },
     {
@@ -62,7 +65,7 @@ const Tours = () => {
         "Relax by the beaches of Negombo",
       ],
       theme: "cultural",
-      image: "/images/Tours/Calvera-package/Calvera-Cultuer/dance-6983578.jpg",
+      image: "/images/Tours/Calvera pakage/Calvera Cultuer/dance-6983578.jpg",
       imageAlt: "Cultural heritage of Sri Lanka",
     },
     {
@@ -82,7 +85,8 @@ const Tours = () => {
         "Relax on golden beaches at sunset",
       ],
       theme: "adventure",
-      image: "/images/Tours/Calvera-package/Calvera-Wild/henning-borgersen-Kr_RijTa0kg-unsplash.jpg",
+      image:
+        "/images/Tours/Calvera pakage/Calvera Wild/henning-borgersen-Kr_RijTa0kg-unsplash.jpg",
       imageAlt: "Safari jeep exploring the wild",
     },
     {
@@ -102,7 +106,8 @@ const Tours = () => {
         "Explore vibrant Colombo",
       ],
       theme: "coastal",
-      image: "/images/Tours/Calvera-package/Calvera-Coastal-Bliss/nir-himi-zdGKjazmn14-unsplash.jpg",
+      image:
+        "/images/Tours/Calvera pakage/Calvera Coastal Bliss (Leisure & Beach Relaxation/costalbills1.jpg",
       imageAlt: "Beautiful coastal beach view",
     },
     {
@@ -131,7 +136,9 @@ const Tours = () => {
         "Final night in Colombo",
       ],
       theme: "signature",
-      image: "/images/Tours/Calvera-package/Calvera-Signature/5e186492-4a18-4778-a663-8487973cac94.jpg",
+      image: "/images/Tours/Calvera pakage/Calvera Signature/Signature.jpg",
+      hoverImage:
+        "/images/Tours/Calvera pakage/Calvera Signature/Signature.jpg",
       imageAlt: "Traveler exploring Sri Lanka",
     },
   ];
@@ -155,7 +162,10 @@ const Tours = () => {
 
     return (
       <div className="popup-overlay" onClick={onClose}>
-        <div className={`popup-content ${pkg.theme}`} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={`popup-content ${pkg.theme}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <button className="popup-close" onClick={onClose}>
             <i className="fas fa-times"></i>
           </button>
@@ -170,9 +180,15 @@ const Tours = () => {
 
           <div className="popup-body">
             <ul className="popup-details">
-              <li><strong>Destinations:</strong> {pkg.destinations.join(" • ")}</li>
-              <li><strong>Ideal For:</strong> {pkg.idealFor}</li>
-              <li><strong>Starting From:</strong> {pkg.price}</li>
+              <li>
+                <strong>Destinations:</strong> {pkg.destinations.join(" • ")}
+              </li>
+              <li>
+                <strong>Ideal For:</strong> {pkg.idealFor}
+              </li>
+              <li>
+                <strong>Starting From:</strong> {pkg.price}
+              </li>
             </ul>
 
             <div className="popup-summary">
@@ -214,8 +230,16 @@ const Tours = () => {
         highlightText="Unforgettable Experiences"
         subtitle="Handcrafted Journeys Across Sri Lanka"
         badge="Calvera Signature Collection"
-        primaryButton={{ text: "View Packages", link: "#packages", icon: "fa-gift" }}
-        secondaryButton={{ text: "Contact Us", link: "/contact", icon: "fa-phone" }}
+        primaryButton={{
+          text: "View Packages",
+          link: "#packages",
+          icon: "fa-gift",
+        }}
+        secondaryButton={{
+          text: "Contact Us",
+          link: "/contact",
+          icon: "fa-phone",
+        }}
         showFeatures
         showScrollIndicator
       />
@@ -227,24 +251,28 @@ const Tours = () => {
             {packages.map((pkg) => (
               <div key={pkg.id} className={`package-card ${pkg.theme}`}>
                 <div className="image-wrapper">
-                  <img 
-                    src={pkg.image} 
+                  <img
+                    src={pkg.image}
                     alt={pkg.imageAlt}
                     className="card-image-main"
                   />
                   {pkg.hoverImage && (
-                    <img 
-                      src={pkg.hoverImage} 
+                    <img
+                      src={pkg.hoverImage}
                       alt={pkg.imageAlt}
                       className="card-image-hover"
                     />
                   )}
-                  <span className="package-tag">{pkg.title.split(" ")[1]}</span>
+                  <span className="package-tag">
+                    {pkg.title.split(" ")[1]}
+                  </span>
                 </div>
                 <div className="package-info">
                   <h3>{pkg.title}</h3>
                   <p>{pkg.summary.slice(0, 120)}...</p>
-                  <p className="duration"><i className="far fa-clock"></i> {pkg.duration}</p>
+                  <p className="duration">
+                    <i className="far fa-clock"></i> {pkg.duration}
+                  </p>
                   <button className="btn-view" onClick={() => openPopup(pkg)}>
                     <i className="fas fa-eye"></i> View Summary
                   </button>

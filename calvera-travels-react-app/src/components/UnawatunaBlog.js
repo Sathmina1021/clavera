@@ -1,4 +1,4 @@
-ggimport React from 'react';
+import React from 'react';
 import { Clock, MapPin } from 'lucide-react';
 
 const UnawatunaBlog = () => {
@@ -24,21 +24,9 @@ const UnawatunaBlog = () => {
           </p>
         </div>
       </div>
-
-      {/* Featured Image */}
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-4" style={{ ringColor: '#ea8f32' }}>
-          <img 
-            src="/images/blog/unawatuna-beach.jpg" 
-            alt="Unawatuna Beach" 
-            className="w-full h-96 object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        </div>
-      </div>
-
+      
       {/* Blog Content */}
-      <article className="max-w-4xl mx-auto px-6 pb-16">
+      <div className="max-w-4xl mx-auto px-6 pt-10 pb-16">
         <div className="prose prose-lg max-w-none">
           <p className="lead text-xl mb-8 leading-relaxed" style={{ color: '#22404a' }}>
             Unawatuna is a coastal town in Galle district of Sri Lanka. Unawatuna is a major tourist attraction in Sri Lanka and famous for its beautiful beach and corals.
@@ -53,10 +41,10 @@ const UnawatunaBlog = () => {
           </h2>
           
           <p className="mb-6 text-lg" style={{ color: '#22404a' }}>
-            The name Unawatuna is derived from the Sinhala words "unna" meaning "less" and "watuna" meaning "fell". According to the Ramayana, the monkey-god Hanuman was sent back to India to fetch the four medicinal herbs from Himalayas in order to heal Lakshmana who was wounded. Hanuman failed to identify these herbs, so he lifted the entire mountain and carried it to the battlefield to try to save Lakshmana, but in the process, a chunk of it "fell down" in the location of the present day Unawatuna.
+            The name Unawatuna is derived from the Sinhala words "unna" meaning "less" and "watuna" meaning "fell". According to the Ramayana, the monkey-god Hanuman was sent back to India to fetch the four medicinal herbs from Himalayas in order to heal Lakshmana who was wounded. Hanuman failed to identify these herbs, so he lifted the entire mountain and carried it to the battlefield to try to save Lakshmana, but in the process, a chunk of it "fell down"
           </p>
         </div>
-      </article>
+      </div>
     </div>
   );
 };

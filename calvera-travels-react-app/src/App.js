@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Destination from './components/Destination';
+import DestinationDetail from './components/DestinationDetail';
 import AboutUs from './components/AboutUs';
 import Tours from './components/Tours';
 import Contact from './components/Contact';
@@ -26,6 +27,11 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/Destination" element={<Destination />} />
+            
+            {/* 🔥 THIS IS THE CRITICAL FIX 🔥 */}
+            {/* The :slug parameter captures the destination name from the URL */}
+            <Route path="/Destination/:slug" element={<DestinationDetail />} />
+            
             <Route path="/AboutUs" element={<AboutUs />} />
             <Route path="/Tours" element={<Tours />} />
             <Route path="/Contact" element={<Contact />} />

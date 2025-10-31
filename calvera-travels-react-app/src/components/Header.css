@@ -59,7 +59,7 @@
   backdrop-filter: blur(25px) saturate(200%);
   -webkit-backdrop-filter: blur(25px) saturate(200%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 0.4s ease, border-bottom 0.4s ease, padding 0.3s ease;
+  transition:background-color 0.4s ease, border-bottom 0.4s ease, padding 0.3s ease;
 }
 
 /* Glass background variants */
@@ -117,7 +117,7 @@ body[data-theme="dark"] .header {
 }
 .logo-text span {
   font-family: 'Poppins', sans-serif; /* Explicitly apply Poppins */
-  color: #ff6b00; /* Use primary brand color */
+  color: #7b3e12; /* Use primary brand color */
   font-size: 0.9rem;
   font-weight: 600;
   display: block;

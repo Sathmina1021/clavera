@@ -13,149 +13,154 @@ const Home = () => {
         <>
             <Hero />  
 
+            {/* =========== WELCOME SECTION =========== */}
+            {/* This section was already correct, using a CSS variable which is a great approach. */}
             <Fade direction="up" triggerOnce>
-    <section className="welcome-section"
-        style={{ '--welcome-background-image': `url(${process.env.PUBLIC_URL}/images/home%20page/welcomesetion/welcomeback.jpg)` }}
-    >
-        {/* Animated Background Shapes */}
-        <div className="welcome-bg-shapes">
-            <div className="shape shape-1"></div>
-            <div className="shape shape-2"></div>
-            <div className="shape shape-3"></div>
-            <div className="shape shape-4"></div>
-        </div>
-
-        {/* Decorative Floating Circles */}
-        <div className="welcome-decorative-circle circle-top-right"></div>
-        <div className="welcome-decorative-circle circle-bottom-left"></div>
-        <div className="welcome-decorative-circle circle-center"></div>
-        
-        {/* Colorful Particles */}
-        <div className="color-particles">
-            <div className="particle particle-1"></div>
-            <div className="particle particle-2"></div>
-            <div className="particle particle-3"></div>
-            <div className="particle particle-4"></div>
-            <div className="particle particle-5"></div>
-            <div className="particle particle-6"></div>
-        </div>
-        
-        <div className="container">
-            <div className="welcome-content">
-                {/* Welcome Icon with Glass Effect */}
-                <div className="welcome-icon-wrapper">
-                    <div className="welcome-icon">
-                        <div className="icon-glow"></div>
-                        <i className="fas fa-compass"></i>
+                <section className="welcome-section"
+                    style={{ '--welcome-background-image': `url(${process.env.PUBLIC_URL}/images/home%20page/welcomesetion/welcomeback.jpg)` }}
+                >
+                    {/* Animated Background Shapes */}
+                    <div className="welcome-bg-shapes">
+                        <div className="shape shape-1"></div>
+                        <div className="shape shape-2"></div>
+                        <div className="shape shape-3"></div>
+                        <div className="shape shape-4"></div>
                     </div>
-                </div>
-                
-                {/* Main Heading - Centered */}
-                <h2 className="welcome-main-title">
-                    Welcome to <span className="highlight">Calvera Travels</span>
-                </h2>
-                
-                {/* Subtitle - Below Main Title */}
-                <p className="welcome-subtitle">
-                    <span className="subtitle-icon">✨</span>
-                    Your journey begins here!
-                    <span className="subtitle-icon">✨</span>
-                </p>
 
-                {/* Description - Flowing Text */}
-                <div className="welcome-description">
-                    <div className="flow-text">
-                        <div className="text-glow-effect"></div>
-                        <p>
-                            At Calvera Travel, we believe every journey tells a story. From the ancient wonders 
-                            of Sri Lanka's Cultural Triangle to the golden beaches and misty highlands, we craft 
-                            unforgettable experiences that go beyond travel. Whether you dream of exploring iconic 
-                            landmarks, relaxing in hidden retreats, or discovering authentic local culture, our 
-                            dedicated team is here to guide you every step of the way.
-                        </p>
+                    {/* Decorative Floating Circles */}
+                    <div className="welcome-decorative-circle circle-top-right"></div>
+                    <div className="welcome-decorative-circle circle-bottom-left"></div>
+                    <div className="welcome-decorative-circle circle-center"></div>
+                    
+                    {/* Colorful Particles */}
+                    <div className="color-particles">
+                        <div className="particle particle-1"></div>
+                        <div className="particle particle-2"></div>
+                        <div className="particle particle-3"></div>
+                        <div className="particle particle-4"></div>
+                        <div className="particle particle-5"></div>
+                        <div className="particle particle-6"></div>
                     </div>
-                </div>
+                    
+                    <div className="container">
+                        <div className="welcome-content">
+                            {/* Welcome Icon with Glass Effect */}
+                            <div className="welcome-icon-wrapper">
+                                <div className="welcome-icon">
+                                    <div className="icon-glow"></div>
+                                    <i className="fas fa-compass"></i>
+                                </div>
+                            </div>
+                            
+                            {/* Main Heading - Centered */}
+                            <h2 className="welcome-main-title">
+                                Welcome to <span className="highlight">Calvera Travels</span>
+                            </h2>
+                            
+                            {/* Subtitle - Below Main Title */}
+                            <p className="welcome-subtitle">
+                                <span className="subtitle-icon">✨</span>
+                                Your journey begins here!
+                                <span className="subtitle-icon">✨</span>
+                            </p>
 
-                {/* Stats Section - Inline Flow with Colorful Cards */}
-                <div className="welcome-stats-flow">
-                    <div className="stat-flow-item stat-gradient-1">
-                        <div className="stat-glow-bg"></div>
-                        <div className="stat-flow-icon">
-                            <i className="fas fa-users"></i>
+                            {/* Description - Flowing Text */}
+                            <div className="welcome-description">
+                                <div className="flow-text">
+                                    <div className="text-glow-effect"></div>
+                                    <p>
+                                        At Calvera Travel, we believe every journey tells a story. From the ancient wonders 
+                                        of Sri Lanka's Cultural Triangle to the golden beaches and misty highlands, we craft 
+                                        unforgettable experiences that go beyond travel. Whether you dream of exploring iconic 
+                                        landmarks, relaxing in hidden retreats, or discovering authentic local culture, our 
+                                        dedicated team is here to guide you every step of the way.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Stats Section - Inline Flow with Colorful Cards */}
+                            <div className="welcome-stats-flow">
+                                <div className="stat-flow-item stat-gradient-1">
+                                    <div className="stat-glow-bg"></div>
+                                    <div className="stat-flow-icon">
+                                        <i className="fas fa-users"></i>
+                                    </div>
+                                    <div className="stat-flow-content">
+                                        <span className="stat-flow-number">1000+</span>
+                                        <span className="stat-flow-label">Happy Travelers</span>
+                                    </div>
+                                </div>
+
+                                <div className="stat-divider"></div>
+
+                                <div className="stat-flow-item stat-gradient-2">
+                                    <div className="stat-glow-bg"></div>
+                                    <div className="stat-flow-icon">
+                                        <i className="fas fa-map-marked-alt"></i>
+                                    </div>
+                                    <div className="stat-flow-content">
+                                        <span className="stat-flow-number">20+</span>
+                                        <span className="stat-flow-label">Destinations</span>
+                                    </div>
+                                </div>
+
+                                <div className="stat-divider"></div>
+
+                                <div className="stat-flow-item stat-gradient-3">
+                                    <div className="stat-glow-bg"></div>
+                                    <div className="stat-flow-icon">
+                                        <i className="fas fa-award"></i>
+                                    </div>
+                                    <div className="stat-flow-content">
+                                        <span className="stat-flow-number">10+</span>
+                                        <span className="stat-flow-label">Years Experience</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* CTA Button - Centered at Bottom */}
+                            <div className="welcome-cta-center">
+                                <Link to="/tours" className="btn-journey glass-button">
+                                    <span className="btn-bg-gradient"></span>
+                                    <span className="btn-bg-glow"></span>
+                                    <span className="btn-content">
+                                        <span className="btn-text">Start Your Journey</span>
+                                        <span className="btn-icon">
+                                            <i className="fas fa-arrow-right"></i>
+                                        </span>
+                                    </span>
+                                    <span className="btn-ripple"></span>
+                                    <span className="btn-shine"></span>
+                                </Link>
+                            </div>
+
+                            {/* Trust Badges */}
+                            <div className="trust-badges-colorful">
+                                <div className="trust-badge badge-1">
+                                    <i className="fas fa-certificate"></i>
+                                    <span>Certified Agency</span>
+                                </div>
+                                <div className="trust-badge badge-2">
+                                    <i className="fas fa-shield-check"></i>
+                                    <span>Safe & Secure</span>
+                                </div>
+                                <div className="trust-badge badge-3">
+                                    <i className="fas fa-heart"></i>
+                                    <span>Customer First</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="stat-flow-content">
-                            <span className="stat-flow-number">1000+</span>
-                            <span className="stat-flow-label">Happy Travelers</span>
-                        </div>
                     </div>
+                </section>
+            </Fade>
 
-                    <div className="stat-divider"></div>
-
-                    <div className="stat-flow-item stat-gradient-2">
-                        <div className="stat-glow-bg"></div>
-                        <div className="stat-flow-icon">
-                            <i className="fas fa-map-marked-alt"></i>
-                        </div>
-                        <div className="stat-flow-content">
-                            <span className="stat-flow-number">20+</span>
-                            <span className="stat-flow-label">Destinations</span>
-                        </div>
-                    </div>
-
-                    <div className="stat-divider"></div>
-
-                    <div className="stat-flow-item stat-gradient-3">
-                        <div className="stat-glow-bg"></div>
-                        <div className="stat-flow-icon">
-                            <i className="fas fa-award"></i>
-                        </div>
-                        <div className="stat-flow-content">
-                            <span className="stat-flow-number">10+</span>
-                            <span className="stat-flow-label">Years Experience</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* CTA Button - Centered at Bottom */}
-                <div className="welcome-cta-center">
-                    <Link to="/tours" className="btn-journey glass-button">
-                        <span className="btn-bg-gradient"></span>
-                        <span className="btn-bg-glow"></span>
-                        <span className="btn-content">
-                            <span className="btn-text">Start Your Journey</span>
-                            <span className="btn-icon">
-                                <i className="fas fa-arrow-right"></i>
-                            </span>
-                        </span>
-                        <span className="btn-ripple"></span>
-                        <span className="btn-shine"></span>
-                    </Link>
-                </div>
-
-                {/* Trust Badges */}
-                <div className="trust-badges-colorful">
-                    <div className="trust-badge badge-1">
-                        <i className="fas fa-certificate"></i>
-                        <span>Certified Agency</span>
-                    </div>
-                    <div className="trust-badge badge-2">
-                        <i className="fas fa-shield-check"></i>
-                        <span>Safe & Secure</span>
-                    </div>
-                    <div className="trust-badge badge-3">
-                        <i className="fas fa-heart"></i>
-                        <span>Customer First</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</Fade>
+            {/* =========== SRI LANKA SECTION =========== */}
+            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
             <Fade direction="up" triggerOnce>
                 <section 
                     className="sri-lanka-section"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('/images/home page/sri lanka section/sri lankaback.jpg')`,
+                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url(${process.env.PUBLIC_URL}/images/home%20page/sri%20lanka%20section/sri%20lankaback.jpg)`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundAttachment: 'fixed'
@@ -189,11 +194,13 @@ const Home = () => {
                 </section>
             </Fade>
 
+            {/* =========== DISCOVER SECTION =========== */}
+            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
             <Fade direction="up" triggerOnce>
                 <section 
                     className="discover-wonders-section"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/home page/discover/discoverback.jpg')`,
+                        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${process.env.PUBLIC_URL}/images/home%20page/discover/discoverback.jpg)`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundAttachment: 'fixed'
@@ -232,11 +239,13 @@ const Home = () => {
                 </section>
             </Fade>
 
+            {/* =========== WHY CHOOSE US SECTION =========== */}
+            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
             <Fade direction="up" triggerOnce>
                 <section 
                     className="why-choose-us-section"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('/images/home page/why chose/whyback.jpg')`,
+                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url(${process.env.PUBLIC_URL}/images/home%20page/why%20chose/whyback.jpg)`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundAttachment: 'fixed'
@@ -282,6 +291,8 @@ const Home = () => {
                 </section>
             </Fade>
 
+            {/* =========== TOUR SECTIONS =========== */}
+            {/* These sections remain as you provided them. */}
             <Fade direction="up" triggerOnce>
                 <PopularTours />
             </Fade>
