@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import Destination from './components/Destination';
 import DestinationDetail from './components/DestinationDetail';
+import DestinationDetail from './components/DestinationDetail';
 import AboutUs from './components/AboutUs';
 import Tours from './components/Tours';
 import Contact from './components/Contact';

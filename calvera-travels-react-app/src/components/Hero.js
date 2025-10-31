@@ -56,6 +56,7 @@ const Hero = ({
     return (
         <div className={`page-hero ${scrolled ? 'scrolled' : ''}`}>
             {/* Background Images with Crossfade */}
+            {/* This transform applies the parallax "move up" effect to the background */}
             <div className="hero-backgrounds" style={{ transform: `translateY(${parallaxOffset}px)` }}>
                 {backgroundImages.map((image, index) => (
                     <div
