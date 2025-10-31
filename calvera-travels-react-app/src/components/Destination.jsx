@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Destination.css";
-import { DESTINATIONS } from "../data/destinationData";
+// NOTE: Make sure this path is correct for your project structure
+import { DESTINATIONS } from "../data/destinationData"; 
 
 function slugify(name = "") {
   return name.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
@@ -12,9 +13,17 @@ export default function Destination() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [viewMode, setViewMode] = useState("grid");
-  const [favorites, setFavorites] = useState([]);
+  // 🐛 Fix: Ensure this array holds IDs, matching what you use in your DESTINATIONS data
+  const [favorites, setFavorites] = useState([]); 
 
-  const regions = ["all", "asia", "europe", "africa", "americas"];
+  // 1. DYNAMIC REGIONS LIST (SCALABILITY IMPROVEMENT)
+  const regions = useMemo(() => {
+    const uniqueRegions = new Set(
+      DESTINATIONS.map(d => (d.region || "").toLowerCase()).filter(Boolean)
+    );
+    // Returns ["all", "asia", "europe", ...] sorted alphabetically
+    return ["all", ...Array.from(uniqueRegions).sort()];
+  }, []); 
 
   const filtered = useMemo(() => {
     let pool = activeFilter === "all" 
@@ -31,12 +40,14 @@ export default function Destination() {
 
     return [...pool].sort((a, b) => {
       if (sortBy === "region") return (a.region || "").localeCompare(b.region || "");
+      // Default sort by name
       return (a.name || "").localeCompare(b.name || "");
     });
   }, [activeFilter, search, sortBy]);
 
   const toggleFavorite = (e, id) => {
-    e.preventDefault();
+    // 🔥 CRITICAL FIX: Stops the click from bubbling up to the <Link>
+    e.preventDefault(); 
     e.stopPropagation();
     setFavorites(prev =>
       prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]
@@ -104,9 +115,11 @@ export default function Destination() {
                   placeholder="Search destinations..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
+                  // 2. ACCESSIBILITY IMPROVEMENT
+                  aria-label="Search destinations" 
                 />
                 {search && (
-                  <button className="clear-search" onClick={() => setSearch("")}>
+                  <button className="clear-search" onClick={() => setSearch("")} aria-label="Clear search">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="18" y1="6" x2="6" y2="18"/>
                       <line x1="6" y1="6" x2="18" y2="18"/>
@@ -118,6 +131,7 @@ export default function Destination() {
                 className="sort-select"
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value)}
+                aria-label="Sort destinations"
               >
                 <option value="name">Sort by Name</option>
                 <option value="region">Sort by Region</option>
@@ -164,11 +178,13 @@ export default function Destination() {
           {/* Grid/List */}
           <div className={`destinations-${viewMode}`}>
             {filtered.map(destination => {
+              // Fallback slug generation is good
               const slug = destination.slug || slugify(destination.name);
               const imgSrc = destination.image || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&auto=format&fit=crop&q=70";
               const isFav = favorites.includes(destination.id);
 
               return (
+                // This <Link> is the correct element for navigation
                 <Link
                   key={destination.id || slug}
                   to={`/Destination/${slug}`}
@@ -255,6 +271,7 @@ export default function Destination() {
             <div className="quick-links">
               <h3>Popular Regions</h3>
               <div className="region-pills">
+                {/* Use the dynamically generated regions list, excluding "all" filter */}
                 {regions.slice(1).map(region => {
                   const count = DESTINATIONS.filter(
                     d => d.region?.toLowerCase() === region

@@ -208,9 +208,6 @@ const Header = () => {
   // State for Search Modal
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // NOTE: Theme logic (loading, saving, applying to body) is now 
-  // handled entirely within ThemeContext.js.
-
   // === Scroll Detection for Top Bar Hide & Header Shrink ===
   useEffect(() => {
     const handleScroll = () => {
