@@ -58,43 +58,44 @@
 /* ===== Hero ===== */
 .luxe-hero {
   position: relative;
-  min-height: 66vh;
-  background: #111 center/cover no-repeat;
-  display: flex;
-  align-items: flex-end;
+  height: 100vh;            /* baseline */
+  min-height: 560px;
+  width: 100%;
   overflow: hidden;
-  padding: 100px 0 56px; /* ✅ Increased top padding so content clears the header */
-}
-.luxe-veil {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(34,64,74,.86) 100%),
-    radial-gradient(1200px 400px at 50% 120%, rgba(234,143,50,.22), transparent 60%);
-}
-.luxe-noise {
-  position: absolute;
-  inset: -5%;
-  opacity: .06;
-  pointer-events: none;
-  background-image: url("https://grainy-gradients.vercel.app/noise.png");
-  background-size: 300px 300px;
-  mix-blend-mode: overlay;
-}
-.luxe-rimlight {
-  position: absolute;
-  inset: auto -20% 0 -20%;
-  height: 180px;
-  background: radial-gradient(60% 180px at 50% 100%, rgba(233,214,182,.6), transparent 70%);
-  filter: blur(16px);
+  background: #111 center/cover no-repeat;
+
+  /* No flex-bottom alignment anymore; we'll center via absolute positioning */
+  display: block;
+  padding: 0;               /* we center content, so no bottom padding needed here */
 }
 
+/* Mobile viewport-safe fallbacks */
+@supports (height: 100svh) { .luxe-hero { height: 100svh; } }
+@supports (height: 100dvh) { .luxe-hero { height: 100dvh; } }
+
+/* Keep your overlays beneath content */
+.luxe-veil,
+.luxe-noise,
+.luxe-rimlight { z-index: 0; }
+
+/* ✅ Perfect vertical & horizontal centering for the hero content */
 .detail-hero__content {
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);     /* stays centered */
+  z-index: 2;
   color: #fff;
+  width: min(92%, 1200px);
+  padding: 0 20px;
+  animation: detailHeroIn .9s ease both;
 }
 
+/* Keep the animation from breaking centering */
+@keyframes detailHeroIn {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 24px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
 .hero-top-actions {
   display: flex;
   justify-content: space-between;
