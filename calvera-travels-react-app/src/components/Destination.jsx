@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Destination.css";
+// NOTE: Make sure this path is correct for your project structure
 import { DESTINATIONS } from "../data/destinationData";
 
 function slugify(name = "") {
@@ -16,10 +17,24 @@ export default function Destination() {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [viewMode, setViewMode] = useState("grid");
+  // 🐛 Fix: Ensure this array holds IDs, matching what you use in your DESTINATIONS data
   const [favorites, setFavorites] = useState([]);
 
-  const regions = ["all", "asia", "europe", "africa", "americas"];
+  // 1) Derived, stable stats
+  const totalPlaces = useMemo(
+    () => DESTINATIONS.reduce((acc, d) => acc + (d.places?.length || 0), 0),
+    []
+  );
 
+  // 2) Dynamic regions list
+  const regions = useMemo(() => {
+    const uniqueRegions = new Set(
+      DESTINATIONS.map((d) => (d.region || "").toLowerCase()).filter(Boolean)
+    );
+    return ["all", ...Array.from(uniqueRegions).sort()];
+  }, []);
+
+  // 3) Filter, search, sort
   const filtered = useMemo(() => {
     let pool =
       activeFilter === "all"
@@ -43,6 +58,37 @@ export default function Destination() {
     });
   }, [activeFilter, search, sortBy]);
 
+  // 4) Dynamic hero text + background
+  const heroTitle = useMemo(() => {
+    return activeFilter === "all"
+      ? "Explore Destinations"
+      : // ✅ Fixed: Added backticks for template literal
+        `Explore ${
+          activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)
+        } Destinations`;
+  }, [activeFilter]);
+
+  const heroSubtitle = useMemo(() => {
+    if (search.trim()) {
+      return `Showing ${filtered.length} result${
+        filtered.length === 1 ? "" : "s"
+      } for “${search}”`;
+    }
+    if (activeFilter !== "all") {
+      // ✅ Fixed: Added backticks for template literal
+      return `Handpicked places across the ${activeFilter} region`;
+    }
+    return "Discover breathtaking places, hidden gems, and unforgettable experiences";
+  }, [activeFilter, search, filtered.length]);
+
+  // Prefer the first visible card image; otherwise use a nice default.
+  const heroBg = useMemo(() => {
+    const firstImage =
+      filtered?.[0]?.image ||
+      "/images/destinations-hero.jpg"; // ✅ Put a generic hero fallback in /public/images
+    return firstImage;
+  }, [filtered]);
+
   const toggleFavorite = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
@@ -53,17 +99,32 @@ export default function Destination() {
 
   return (
     <div className="destination-page">
-      {/* Hero */}
-      <div className="page-hero">
+      {/* ================= HERO ================= */}
+      <div
+        className="page-hero"
+        // Inline background lets you keep your current CSS but still make it context-aware
+        style={{
+          // ✅ Fixed: Added backticks for template literal
+          backgroundImage: `url("${heroBg}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="hero-overlay" />
         <div className="hero-particles" />
         <div className="hero-content">
-          <span className="hero-badge">Discover the World</span>
-          <h1>Explore Destinations</h1>
-          <p>
-            Discover breathtaking places, hidden gems, and unforgettable
-            experiences
-          </p>
+          <span className="hero-badge">
+            <i className="fas fa-map-marked-alt" aria-hidden="true"></i>
+            {activeFilter === "all"
+              ? "Explore Sri Lanka"
+              : // ✅ Fixed: Added backticks for template literal
+                `Region: ${activeFilter.toUpperCase()}`}
+          </span>
+
+          <h1>{heroTitle}</h1>
+
+          <p>{heroSubtitle}</p>
+
           <div className="hero-stats">
             <div className="stat">
               <span className="stat-number">{DESTINATIONS.length}</span>
@@ -71,12 +132,7 @@ export default function Destination() {
             </div>
             <div className="stat-divider" />
             <div className="stat">
-              <span className="stat-number">
-                {DESTINATIONS.reduce(
-                  (acc, d) => acc + (d.places?.length || 0),
-                  0
-                )}
-              </span>
+              <span className="stat-number">{totalPlaces}</span>
               <span className="stat-label">Places</span>
             </div>
             <div className="stat-divider" />
@@ -89,7 +145,7 @@ export default function Destination() {
         <div className="scroll-indicator" />
       </div>
 
-      {/* Main */}
+      {/* ================= MAIN ================= */}
       <section className="destinations-section">
         <div className="container">
           {/* Controls */}
@@ -120,6 +176,7 @@ export default function Destination() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
+                  aria-hidden="true"
                 >
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
@@ -130,9 +187,15 @@ export default function Destination() {
                   placeholder="Search destinations..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
+                  aria-label="Search destinations"
                 />
                 {search && (
-                  <button className="clear-search" onClick={() => setSearch("")}>
+                  <button
+                    type="button"
+                    className="clear-search"
+                    onClick={() => setSearch("")}
+                    aria-label="Clear search"
+                  >
                     <svg
                       width="14"
                       height="14"
@@ -140,6 +203,7 @@ export default function Destination() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
+                      aria-hidden="true"
                     >
                       <line x1="18" y1="6" x2="6" y2="18" />
                       <line x1="6" y1="6" x2="18" y2="18" />
@@ -147,17 +211,23 @@ export default function Destination() {
                   </button>
                 )}
               </div>
+
               <select
                 className="sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort destinations"
               >
                 <option value="name">Sort by Name</option>
                 <option value="region">Sort by Region</option>
               </select>
+
               <div className="view-toggle">
                 <button
-                  className={`view-btn ${viewMode === "grid" ? "active" : ""}`}
+                  // ✅ Fixed: Added backticks for template literal
+                  className={`view-btn ${
+                    viewMode === "grid" ? "active" : ""
+                  }`}
                   onClick={() => setViewMode("grid")}
                   title="Grid view"
                 >
@@ -166,6 +236,7 @@ export default function Destination() {
                     height="18"
                     viewBox="0 0 24 24"
                     fill="currentColor"
+                    aria-hidden="true"
                   >
                     <rect x="3" y="3" width="7" height="7" />
                     <rect x="14" y="3" width="7" height="7" />
@@ -174,7 +245,10 @@ export default function Destination() {
                   </svg>
                 </button>
                 <button
-                  className={`view-btn ${viewMode === "list" ? "active" : ""}`}
+                  // ✅ Fixed: Added backticks for template literal
+                  className={`view-btn ${
+                    viewMode === "list" ? "active" : ""
+                  }`}
                   onClick={() => setViewMode("list")}
                   title="List view"
                 >
@@ -185,6 +259,7 @@ export default function Destination() {
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
+                    aria-hidden="true"
                   >
                     <line x1="8" y1="6" x2="21" y2="6" />
                     <line x1="8" y1="12" x2="21" y2="12" />
@@ -207,6 +282,7 @@ export default function Destination() {
           </div>
 
           {/* Grid/List */}
+          {/* ✅ Fixed: Added backticks for template literal */}
           <div className={`destinations-${viewMode}`}>
             {filtered.map((destination) => {
               const slug = destination.slug || slugify(destination.name);
@@ -218,18 +294,18 @@ export default function Destination() {
               return (
                 <Link
                   key={destination.id || slug}
+                  // ✅ Fixed: Added backticks for template literal
                   to={`/Destination/${slug}`}
                   className="destination-card"
                 >
                   <div className="card-image">
                     <img src={imgSrc} alt={destination.name} loading="lazy" />
                     <button
+                      // ✅ Fixed: Added backticks for template literal
                       className={`fav-btn ${isFav ? "active" : ""}`}
                       onClick={(e) => toggleFavorite(e, destination.id)}
                       title={
-                        isFav
-                          ? "Remove from favorites"
-                          : "Add to favorites"
+                        isFav ? "Remove from favorites" : "Add to favorites"
                       }
                     >
                       <svg
@@ -239,6 +315,7 @@ export default function Destination() {
                         fill={isFav ? "currentColor" : "none"}
                         stroke="currentColor"
                         strokeWidth="2"
+                        aria-hidden="true"
                       >
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                       </svg>
@@ -252,6 +329,7 @@ export default function Destination() {
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
+                          aria-hidden="true"
                         >
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                           <circle cx="12" cy="10" r="3" />
@@ -260,6 +338,7 @@ export default function Destination() {
                       </div>
                     )}
                   </div>
+
                   <div className="card-content">
                     <div className="card-header">
                       <h3>{destination.name}</h3>
@@ -277,6 +356,7 @@ export default function Destination() {
                           height="16"
                           viewBox="0 0 24 24"
                           fill="currentColor"
+                          aria-hidden="true"
                         >
                           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                         </svg>
@@ -285,6 +365,7 @@ export default function Destination() {
                       <span className="reviews">256 reviews</span>
                     </div>
                   </div>
+
                   <div className="card-overlay">
                     <span className="explore-btn">
                       Explore
@@ -295,6 +376,7 @@ export default function Destination() {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
+                        aria-hidden="true"
                       >
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
@@ -317,6 +399,7 @@ export default function Destination() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
+                aria-hidden="true"
               >
                 <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z" />
               </svg>

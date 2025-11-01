@@ -12,11 +12,11 @@ import Blog from './components/Blog';
 import GalleFortBlog from './components/GalleFortBlog';
 import UnawatunaBlog from './components/UnawatunaBlog';
 import PrivacyPolicy from './components/PrivacyPolicy';
-import RulesAndRegulation from './components/RulesAndRegulation';
-import TermsAndCondition from './components/TermsAndCondition';
+import RulesAndRegulation from './components/TermsAndConditions';
 import QA from './components/QA';
 import NotFound from './components/NotFound';
 import './App.css';
+import TermsAndConditions from './components/TermsAndConditions';
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
             <Route path="/unawatuna" element={<UnawatunaBlog />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/rules-and-regulation" element={<RulesAndRegulation />} />
-            <Route path="/terms-and-condition" element={<TermsAndCondition />} />
+            <Route path="/terms-and-condition" element={<TermsAndConditions/>} />
             <Route path="/qa" element={<QA />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
