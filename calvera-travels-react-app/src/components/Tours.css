@@ -318,6 +318,13 @@
   animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ADDED STYLE FOR CONFIRMATION POPUP (Overrides max-width for smaller box) */
+.popup-content[style*="max-width: 600px"] {
+    max-height: 60vh !important;
+    overflow-y: hidden !important; /* No scrolling needed for confirmation */
+}
+
+
 @keyframes slideUp {
   from {
     opacity: 0;

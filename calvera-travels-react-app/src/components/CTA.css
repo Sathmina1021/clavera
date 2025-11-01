@@ -1,104 +1,112 @@
-/* CTA.css */
-
+/* CTA Section - Reduced Height and Closer to Footer */
 .cta-section {
     position: relative;
-    padding: 100px 0;
-    background: linear-gradient(135deg, #22404a 0%, #1a3238 100%);
-    color: #e9d6b6;
-    text-align: center;
+    padding: 50px 20px 40px;
+    margin: 0;
     overflow: hidden;
+    background: linear-gradient(135deg, #2c5364 0%, #203a43 50%, #0f2027 100%);
 }
 
-/* Animated Background Pattern */
-.cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(233, 214, 182, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(234, 143, 50, 0.1) 0%, transparent 50%);
-    animation: pulseBackground 8s ease-in-out infinite;
-    z-index: 0;
-}
-
-@keyframes pulseBackground {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 0.8; }
-}
-
-/* Decorative Circles */
+/* Decorative Elements */
 .cta-decorative-circle {
     position: absolute;
     border-radius: 50%;
-    border: 2px solid rgba(233, 214, 182, 0.2);
-    z-index: 0;
+    background: rgba(255, 255, 255, 0.05);
+    animation: float 20s infinite ease-in-out;
 }
 
 .circle-1 {
-    width: 300px;
-    height: 300px;
-    top: -150px;
-    right: -100px;
-    animation: float 6s ease-in-out infinite;
+    width: 250px;
+    height: 250px;
+    top: -80px;
+    left: -50px;
+    animation-delay: 0s;
 }
 
 .circle-2 {
-    width: 200px;
-    height: 200px;
-    bottom: -100px;
-    left: -50px;
-    animation: float 8s ease-in-out infinite reverse;
+    width: 180px;
+    height: 180px;
+    bottom: -40px;
+    right: 10%;
+    animation-delay: 5s;
 }
 
 .circle-3 {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     top: 50%;
-    left: 10%;
-    animation: float 10s ease-in-out infinite;
+    right: -30px;
+    animation-delay: 10s;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-20px) scale(1.05); }
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0px) translateX(20px); }
+    75% { transform: translateY(20px) translateX(10px); }
 }
 
+/* Background Pattern */
 .cta-background {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://i.ibb.co/6nZz7G3/photo-1506748686214-e9df14d4d9d0-ixlib-rb-4-0.jpg') no-repeat center center/cover;
-    opacity: 0.15;
-    z-index: 0;
-    mix-blend-mode: overlay;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
+/* Content Container */
 .cta-content {
     position: relative;
-    z-index: 2;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
+    text-align: center;
+    z-index: 1;
 }
 
-.cta-content h2 {
-    font-size: 3.5rem;
-    font-weight: bold;
+/* Info Badge */
+.cta-info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255, 165, 0, 0.2);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    border-radius: 50px;
+    color: #ffa500;
+    font-size: 13px;
+    font-weight: 500;
     margin-bottom: 20px;
-    color: #e9d6b6;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    animation: slideDown 0.8s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.cta-info-badge i {
+    color: #ffa500;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Heading */
+.cta-content h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    line-height: 1.2;
 }
 
 .cta-content h2 span {
-    color: #ea8f32;
-    display: inline-block;
+    color: #ffa500;
     position: relative;
+    display: inline-block;
 }
 
 .cta-content h2 span::after {
@@ -108,115 +116,74 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, #ea8f32, transparent);
-    animation: underlineExpand 1s ease-out 0.5s forwards;
-    transform: scaleX(0);
-    transform-origin: left;
+    background: linear-gradient(90deg, transparent, #ffa500, transparent);
 }
 
-@keyframes underlineExpand {
-    to { transform: scaleX(1); }
-}
-
+/* Paragraph */
 .cta-content p {
-    font-size: 1.3rem;
-    max-width: 700px;
-    margin: 0 auto 40px;
-    color: #e9d6b6;
-    opacity: 0.95;
-    line-height: 1.8;
-    animation: slideUp 0.8s ease-out 0.2s backwards;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    line-height: 1.6;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Form Container with Glass Effect */
+/* Form Wrapper */
 .cta-form-wrapper {
-    background: rgba(233, 214, 182, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(233, 214, 182, 0.2);
-    border-radius: 60px;
-    padding: 10px;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    animation: slideUp 0.8s ease-out 0.4s backwards;
+    margin-top: 30px;
 }
 
 .cta-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 60px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .cta-form input {
-    flex-grow: 1;
-    padding: 18px 25px;
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
     border-radius: 50px;
-    border: 2px solid transparent;
-    font-size: 1rem;
-    background-color: #e9d6b6;
-    color: #22404a;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    font-size: 15px;
     outline: none;
+    transition: all 0.3s ease;
 }
 
 .cta-form input::placeholder {
-    color: rgba(34, 64, 74, 0.6);
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .cta-form input:focus {
-    border-color: #ea8f32;
-    background-color: #fff;
-    box-shadow: 0 0 0 4px rgba(234, 143, 50, 0.1);
-    transform: translateY(-2px);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
 }
 
 .cta-form button {
-    padding: 18px 35px;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: linear-gradient(135deg, #ea8f32 0%, #d87a1f 100%);
-    color: #fff;
+    padding: 14px 28px;
     border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff8c00, #ffa500);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(234, 143, 50, 0.3);
+    white-space: nowrap;
 }
 
 .cta-form button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(234, 143, 50, 0.5);
-    background: linear-gradient(135deg, #d87a1f 0%, #ea8f32 100%);
-}
-
-.cta-form button:active {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 165, 0, 0.3);
 }
 
 .cta-form button i {
@@ -229,131 +196,94 @@
 
 /* Success Message */
 .cta-success {
-    animation: successPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: rgba(233, 214, 182, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(233, 214, 182, 0.3);
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 500px;
-    margin: 0 auto;
+    padding: 40px 20px;
+    animation: fadeIn 0.5s ease;
 }
 
-@keyframes successPop {
-    0% {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.cta-success .fa-check-circle {
-    font-size: 4.5rem;
-    color: #ea8f32;
-    margin-bottom: 20px;
-    animation: checkRotate 0.8s ease-out 0.3s backwards;
-    filter: drop-shadow(0 4px 8px rgba(234, 143, 50, 0.4));
-}
-
-@keyframes checkRotate {
-    from {
-        opacity: 0;
-        transform: rotate(-180deg) scale(0);
-    }
-    to {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-    }
+.cta-success i {
+    font-size: 56px;
+    color: #4caf50;
+    margin-bottom: 16px;
+    animation: scaleIn 0.5s ease;
 }
 
 .cta-success h3 {
-    color: #e9d6b6;
-    font-size: 2rem;
-    margin-bottom: 10px;
-    font-weight: bold;
+    font-size: 28px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-weight: 700;
 }
 
 .cta-success p {
-    color: #e9d6b6;
-    font-size: 1.1rem;
-    opacity: 0.9;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Info Badge */
-.cta-info-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(234, 143, 50, 0.2);
-    border: 1px solid rgba(234, 143, 50, 0.4);
-    padding: 10px 20px;
-    border-radius: 30px;
-    margin-bottom: 30px;
-    animation: slideDown 0.8s ease-out 0.6s backwards;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.cta-info-badge i {
-    color: #ea8f32;
-    font-size: 1.2rem;
-}
-
-.cta-info-badge span {
-    color: #e9d6b6;
-    font-size: 0.95rem;
-    font-weight: 500;
+@keyframes scaleIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .cta-section {
-        padding: 60px 0;
+        padding: 40px 20px 35px;
     }
 
     .cta-content h2 {
-        font-size: 2.5rem;
+        font-size: 32px;
+        margin-bottom: 14px;
     }
 
     .cta-content p {
-        font-size: 1.1rem;
+        font-size: 15px;
+        margin-bottom: 25px;
     }
 
     .cta-form {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
+        padding: 12px;
     }
 
-    .cta-form input,
     .cta-form button {
-        width: 100%;
+        justify-content: center;
     }
 
-    .cta-form-wrapper {
-        padding: 15px;
-    }
-
-    .circle-1,
-    .circle-2,
-    .circle-3 {
-        display: none;
+    .circle-1, .circle-2, .circle-3 {
+        width: 120px;
+        height: 120px;
     }
 }
 
 @media (max-width: 480px) {
+    .cta-section {
+        padding: 35px 20px 30px;
+    }
+
     .cta-content h2 {
-        font-size: 2rem;
+        font-size: 26px;
     }
 
-    .cta-content p {
-        font-size: 1rem;
+    .cta-info-badge {
+        font-size: 12px;
+        padding: 7px 16px;
     }
 
-    .cta-success .fa-check-circle {
-        font-size: 3.5rem;
+    .cta-success {
+        padding: 30px 20px;
+    }
+
+    .cta-success i {
+        font-size: 48px;
+    }
+
+    .cta-success h3 {
+        font-size: 24px;
     }
 }

@@ -6,11 +6,11 @@ import tourPackages from "../data/tourPackages";
 const PlanYourTrip = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Hero background images for Plan Your Trip page
+  // Enhanced hero background images
   const heroImages = [
-    "/images/PlanYourTrip/plantrip1.jpg",
-    "/images/PlanYourTrip/plantrip2.jpg",
-    "/images/PlanYourTrip/plantrip3.jpg",
+    "/images/Planyortrip/PYTBack1.jpg",
+    "/images/Planyortrip/PYTBack2.jpg",
+    "/images/Planyortrip/PYTBack.jpg",
   ];
 
   const handleSubmit = (e) => {

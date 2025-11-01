@@ -296,51 +296,7 @@ const AboutUs = () => {
 
 
 
-      {/* VALUES SECTION */}
-      <section className="values-section">
-        <div className="section-header">
-          <h2>Our Core Values</h2>
-        </div>
-        <div className="values-grid">
-          {values.map((value, index) => (
-            <motion.div
-              key={index}
-              className="value-card"
-              style={{ "--value-color": value.color }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="value-icon">
-                <i className={value.icon}></i>
-              </div>
-              <h3>{value.title}</h3>
-              <p>{value.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* TEAM SECTION */}
-      <section className="team-section">
-        <div className="section-header">
-          <h2>Meet the Team</h2>
-        </div>
-        <div className="team-grid">
-          {teamMembers.map((member, idx) => (
-            <motion.div
-              key={idx}
-              className="team-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-            >
-              <img src={member.image} alt={member.name} />
-              <h3>{member.name}</h3>
-              <p>{member.role}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-      
+    
     </div>
   );
 };

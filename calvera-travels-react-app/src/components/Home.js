@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
 import Hero from './Hero';
-import PopularTours from './PopularTours';
-import FeaturedTours from './FeaturedTours';
-import DiscountPackages from './DiscountPackages';
+// import PopularTours from './PopularTours';     // <-- REMOVED (FIXES ERROR)
+// import FeaturedTours from './FeaturedTours';   // <-- REMOVED (FIXES ERROR)
+// import DiscountPackages from './DiscountPackages'; // <-- REMOVED (FIXES ERROR)
 
 import './Home.css';
 
@@ -14,7 +14,6 @@ const Home = () => {
             <Hero />  
 
             {/* =========== WELCOME SECTION =========== */}
-            {/* This section was already correct, using a CSS variable which is a great approach. */}
             <Fade direction="up" triggerOnce>
                 <section className="welcome-section"
                     style={{ '--welcome-background-image': `url(${process.env.PUBLIC_URL}/images/home%20page/welcomesetion/welcomeback.jpg)` }}
@@ -155,7 +154,6 @@ const Home = () => {
             </Fade>
 
             {/* =========== SRI LANKA SECTION =========== */}
-            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
             <Fade direction="up" triggerOnce>
                 <section 
                     className="sri-lanka-section"
@@ -195,7 +193,6 @@ const Home = () => {
             </Fade>
 
             {/* =========== DISCOVER SECTION =========== */}
-            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
             <Fade direction="up" triggerOnce>
                 <section 
                     className="discover-wonders-section"
@@ -220,10 +217,7 @@ const Home = () => {
                             </p>
                             <div className="map-placeholder">
                                 <div className="map-frame">
-                                    <img 
-                                        src="https://i.ibb.co/Qf10111/photo-1501785888041-af3ef285b470-ixlib-rb-4-0.jpg" 
-                                        alt="Map of Sri Lankan Destinations" 
-                                    />
+                                    
                                 </div>
                                 <p className="map-caption">
                                     <i className="fas fa-map-pin"></i>
@@ -240,68 +234,60 @@ const Home = () => {
             </Fade>
 
             {/* =========== WHY CHOOSE US SECTION =========== */}
-            {/* UPDATED: Now uses process.env.PUBLIC_URL and encoded spaces for the background image path. */}
-            <Fade direction="up" triggerOnce>
-                <section 
-                    className="why-choose-us-section"
-                    style={{
-                        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url(${process.env.PUBLIC_URL}/images/home%20page/why%20chose/whyback.jpg)`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundAttachment: 'fixed'
-                    }}
-                >
-                    <div className="container">
-                        <div className="section-header">
-                            <span className="section-subtitle">Your Trusted Travel Partner</span>
-                            <h2 className="section-title">Why Choose Calvera Travels?</h2>
-                            <div className="title-underline"></div>
-                        </div>
-                        <div className="features-grid">
-                            <div className="feature-item">
-                                <div className="feature-icon-wrapper">
-                                    <i className="fas fa-route"></i>
-                                </div>
-                                <h3>Tailored Itineraries</h3>
-                                <p>Every trip is uniquely designed to match your dreams and preferences.</p>
-                            </div>
-                            <div className="feature-item">
-                                <div className="feature-icon-wrapper">
-                                    <i className="fas fa-headset"></i>
-                                </div>
-                                <h3>24/7 Support</h3>
-                                <p>Our dedicated team is always available to assist you, anytime, anywhere.</p>
-                            </div>
-                            <div className="feature-item">
-                                <div className="feature-icon-wrapper">
-                                    <i className="fas fa-hand-holding-heart"></i>
-                                </div>
-                                <h3>Authentic Experiences</h3>
-                                <p>Discover the true essence of each destination with local insights.</p>
-                            </div>
-                            <div className="feature-item">
-                                <div className="feature-icon-wrapper">
-                                    <i className="fas fa-shield-alt"></i>
-                                </div>
-                                <h3>Safety & Comfort</h3>
-                                <p>Your peace of mind is our priority, ensuring a smooth and secure journey.</p>
-                            </div>
-                        </div>
+        <Fade direction="up" triggerOnce>
+    <section 
+        className="why-choose-us-section"
+        style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.90)), url(${process.env.PUBLIC_URL}/images/home%20page/why%20chose/whyback.jpg)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+        }}
+    >
+        <div className="container">
+            <div className="section-header">
+                
+                <h2 className="section-title">
+                     <span className="brand-name">Why Choose Calvera Travels?</span> 
+                </h2>
+                <span className="section-subtitle">Your Trusted Travel Partner</span>
+                <div className="title-underline"></div>
+            </div>
+            <div className="features-grid">
+                <div className="feature-item">
+                    <div className="feature-icon-wrapper">
+                        <i className="fas fa-map-marked-alt"></i>
                     </div>
-                </section>
-            </Fade>
-
-            {/* =========== TOUR SECTIONS =========== */}
-            {/* These sections remain as you provided them. */}
-            <Fade direction="up" triggerOnce>
-                <PopularTours />
-            </Fade>
-            <Fade direction="up" triggerOnce>
-                <FeaturedTours />
-            </Fade>
-            <Fade direction="up" triggerOnce>
-                <DiscountPackages />
-            </Fade>
+                    <h3>Personalized Journeys</h3>
+                    <p>Meticulously crafted itineraries that transform your travel aspirations into unforgettable adventures.</p>
+                </div>
+                <div className="feature-item">
+                    <div className="feature-icon-wrapper">
+                        <i className="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Expert Guidance</h3>
+                    <p>Round-the-clock support from seasoned travel professionals who care about every detail of your experience.</p>
+                </div>
+                <div className="feature-item">
+                    <div className="feature-icon-wrapper">
+                        <i className="fas fa-gem"></i>
+                    </div>
+                    <h3>Authentic Discoveries</h3>
+                    <p>Immerse yourself in genuine cultural experiences with curated local connections and hidden treasures.</p>
+                </div>
+                <div className="feature-item">
+                    <div className="feature-icon-wrapper">
+                        <i className="fas fa-award"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Uncompromising standards in safety, comfort, and service excellence throughout your entire journey.</p>
+                </div>
+            </div>
+                </div>
+                 </section>
+        </Fade>
+    
+            {}
 
         </>
     );

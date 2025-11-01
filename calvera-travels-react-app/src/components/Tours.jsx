@@ -1,17 +1,54 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Hero from "./Hero";
-import "./Tours.css";
+import "./Tours.css"; // Ensure this import is correct
+
+// =======================================================================
+// NEW COMPONENT: Confirmation Popup
+// =======================================================================
+const ConfirmationPopup = ({ onClose }) => {
+  // NOTE: Inline styles are used here for specific element colors/fonts 
+  // but the layout (positioning, size) is controlled by Tours.css
+  return (
+    <div className="popup-overlay" onClick={onClose}>
+      <div 
+        className="popup-content" 
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: '600px', border: '2px solid rgba(234, 143, 50, 0.4)' }}
+      >
+        <button className="popup-close" onClick={onClose}>
+          <i className="fas fa-times"></i>
+        </button>
+        <div className="popup-body" style={{ textAlign: 'center', padding: '60px 40px' }}>
+          <h2 style={{ color: '#ea8f32', fontSize: '2.2rem', marginBottom: '15px' }}>
+            <i className="fas fa-envelope-open-text" style={{ marginRight: '10px' }}></i>
+            Inquiry Sent Successfully!
+          </h2>
+          <p style={{ color: '#e9d6b6', fontSize: '1.1rem', marginBottom: '30px', lineHeight: '1.6' }}>
+            Thank you for your interest in this Calvera tour package.
+            <br />
+            **A member of our team will contact you shortly via email** to finalize the details of your reservation.
+          </p>
+          <button onClick={onClose} className="btn-primary" style={{ width: 'auto', padding: '15px 40px' }}>
+            <i className="fas fa-arrow-left"></i> Return to Tours
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+// =======================================================================
 
 const Tours = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  // STATE: To show the confirmation message
+  const [showConfirmation, setShowConfirmation] = useState(false); 
 
   // --- Hero Images ---
   const toursHeroImages = [
-    "/images/Tours/tours-hero-back/tourshero (1).jpg",
-    "/images/Tours/tours-hero-back/tourshero (2).jpg",
-    "/images/Tours/tours-hero-back/tourshero (3).jpg",
+    "/images/Tours/tours hero back/tourshero (1).jpg",
+    "/images/Tours/tours hero back/tourshero (2).jpg",
+    "/images/Tours/tours hero back/tourshero (3).jpg",
   ];
 
   // --- Tour Packages Data ---
@@ -34,7 +71,6 @@ const Tours = () => {
         "Unwind on golden beaches under tropical sunsets",
       ],
       theme: "romantic",
-      // --- CHANGE IS HERE (Paths fixed from C:\... to relative) ---
       image:
         "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
       hoverImage:
@@ -155,8 +191,25 @@ const Tours = () => {
     setSelectedPackage(null);
     document.body.style.overflow = "auto";
   };
+  
+  // HANDLER: Close the confirmation message
+  const closeConfirmation = () => {
+    setShowConfirmation(false);
+    document.body.style.overflow = "auto";
+  };
 
-  // --- Popup Component ---
+  // HANDLER: Simulate reservation/contact submission
+  const handleReserve = (pkgId) => {
+    // *** NOTE: In a real application, you would send this data to your backend API here ***
+    console.log(`Reservation requested for package: ${pkgId}`);
+    
+    closePopup(); // Close the package details popup
+    setShowConfirmation(true); // Show the thank you message
+    document.body.style.overflow = "hidden"; // Keep body locked while confirmation is visible
+  };
+  
+
+  // --- Package Details Popup Component ---
   const PackagePopup = ({ pkg, onClose }) => {
     if (!pkg) return null;
 
@@ -208,9 +261,9 @@ const Tours = () => {
             </div>
 
             <div className="popup-buttons">
-              <Link to="/contact" className="btn-primary">
+              <button onClick={() => handleReserve(pkg.id)} className="btn-primary">
                 <i className="fas fa-calendar-check"></i> Reserve Now
-              </Link>
+              </button>
               <button onClick={onClose} className="btn-secondary">
                 <i className="fas fa-arrow-left"></i> Back to Tours
               </button>
@@ -284,6 +337,8 @@ const Tours = () => {
       </section>
 
       {showPopup && <PackagePopup pkg={selectedPackage} onClose={closePopup} />}
+      {/* RENDERING: Display the confirmation message when submitted */}
+      {showConfirmation && <ConfirmationPopup onClose={closeConfirmation} />}
     </div>
   );
 };
