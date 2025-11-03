@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "buildCommand": "cd calvera-travels-react-app && npm ci && CI= npm run build",
-  "outputDirectory": "calvera-travels-react-app/build",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
