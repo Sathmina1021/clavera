@@ -13,31 +13,61 @@ const PlanYourTrip = () => {
     "/images/Planyortrip/PYTBack.jpg",
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const formObject = {
-      tripType: [],
-      destinations: [],
-      experiences: [],
-    };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const data = new FormData(e.target);
 
-    data.forEach((value, key) => {
-      if (["tripType", "destinations", "experiences"].includes(key)) {
-        formObject[key].push(value);
-      } else {
-        formObject[key] = value;
-      }
+  // Convert FormData → plain object
+  const formObject = {
+    tripType: [],
+    destinations: [],
+    experiences: [],
+  };
+
+  data.forEach((value, key) => {
+    if (["tripType", "destinations", "experiences"].includes(key)) {
+      formObject[key].push(value);
+    } else {
+      formObject[key] = value;
+    }
+  });
+
+  // ✅ Add the date conversion here
+  if (data.get("arrivalDate")) {
+    formObject.arrivalDate = new Date(data.get("arrivalDate"));
+  }
+  if (data.get("departureDate")) {
+    formObject.departureDate = new Date(data.get("departureDate"));
+  }
+
+  // Add a few defaults
+  formObject.sourcePage = "plan-trip";
+  formObject.agreePrivacy = data.get("agreePrivacy") ? true : false;
+  formObject.agreeTerms = data.get("agreeTerms") ? true : false;
+
+  console.log("Submitting form:", formObject);
+
+  try {
+    const res = await fetch("http://localhost:4000/api/v1/inquiries", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formObject),
     });
 
-    console.log("Form submitted:", formObject);
+    if (!res.ok) throw new Error("Failed to submit");
+    const result = await res.json();
+    console.log("✅ Backend response:", result);
     setIsSubmitted(true);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      e.target.reset();
-    }, 5000);
-  };
+    // Reset form
+    e.target.reset();
+    setTimeout(() => setIsSubmitted(false), 5000);
+  } catch (err) {
+    console.error("❌ Error submitting:", err);
+    alert("Something went wrong while submitting. Please try again.");
+  }
+};
+
 
   return (
     <div className="plan-trip-page">

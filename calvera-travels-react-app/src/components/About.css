@@ -70,7 +70,7 @@
 }
 
 .hero-badge i {
-    color: #ffa500;
+    color: #e0dad1;
 }
 
 .hero-content h1 {
@@ -83,7 +83,7 @@
 }
 
 .hero-content h1 span {
-    background: linear-gradient(135deg, #ff6b6b, #ffa500, #4ecdc4);
+    background: linear-gradient(135deg, #ff6b6b, #ffa500, #528fa5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -140,6 +140,22 @@
     color: rgba(255, 255, 255, 0.8);
     margin: 0;
 }
+
+/* ===== Scroll Progress Indicator ===== */
+.scroll-indicator-bottom {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 6px;
+  width: 80%;
+  background: linear-gradient(90deg, #ea8f32, #ff6b00);
+  border-radius: 10px;
+  transform-origin: 0% 50%;
+  z-index: 20;
+  opacity: 0.9;
+}
+
 
 /* ==================== WELCOME SECTION ==================== */
 .welcome-section {

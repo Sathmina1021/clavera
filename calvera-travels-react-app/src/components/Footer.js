@@ -23,8 +23,8 @@ const Footer = () => {
                                     className="logo-img" 
                                 />
                                 <div className="logo-text">
-                                    <h2>CALVERA</h2>
-                                    <span>Travels</span>
+                                    <h2>CALVERA </h2>
+                                        Travels
                                 </div>
                             </div>
                             <p className="tagline">
@@ -67,6 +67,7 @@ const Footer = () => {
                             <li><Link to="/AboutUs"><i className="fas fa-angle-right"></i>About Us</Link></li>
                             <li><Link to="/Destination"><i className="fas fa-angle-right"></i>Destinations</Link></li>
                             <li><Link to="/Tours"><i className="fas fa-angle-right"></i>Tours</Link></li>
+                            <li><Link to="/Planyourtrip"><i className="fas fa-angle-right"></i>Plan Your Trip</Link></li>
                             <li><Link to="/Blog"><i className="fas fa-angle-right"></i>Blog</Link></li>
                             <li><Link to="/Contact"><i className="fas fa-angle-right"></i>Contact</Link></li>
                         </ul>
@@ -82,7 +83,6 @@ const Footer = () => {
                             <li><Link to="/privacy-policy"><i className="fas fa-angle-right"></i>Privacy Policy</Link></li>
                             <li><Link to="/terms-and-condition"><i className="fas fa-angle-right"></i>Terms & Conditions</Link></li>
                             <li><Link to="/qa"><i className="fas fa-angle-right"></i>FAQ</Link></li>
-                            <li><Link to="/careers"><i className="fas fa-angle-right"></i>Careers</Link></li>
                         </ul>
                     </div>
 
@@ -95,7 +95,7 @@ const Footer = () => {
                         <ul>
                             <li>
                                 <i className="fas fa-map-marker-alt"></i>
-                                <span>123 Travel Street, Colombo, Sri Lanka</span>
+                                <span>Colombo, Sri Lanka</span>
                             </li>
                             <li>
                                 <i className="fas fa-phone"></i>
@@ -103,24 +103,12 @@ const Footer = () => {
                             </li>
                             <li>
                                 <i className="fas fa-envelope"></i>
-                                <span>info@calveratravels.com</span>
+                                <span>inquiries@calveratravels.com</span>
                             </li>
-                            <li>
-                                <i className="fas fa-clock"></i>
-                                <span>Mon - Fri: 9:00 AM - 6:00 PM</span>
-                            </li>
+                           
                         </ul>
                         
-                        {/* Newsletter Subscription */}
-                        <div className="newsletter">
-                            <h4>Subscribe to Newsletter</h4>
-                            <div className="newsletter-form">
-                                <input type="email" placeholder="Your email address" />
-                                <button type="submit">
-                                    <i className="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 

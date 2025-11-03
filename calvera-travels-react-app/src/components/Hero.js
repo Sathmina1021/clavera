@@ -115,7 +115,6 @@ const Hero = ({
             {/* Scroll Down Indicator */}
             {showScrollIndicator && (
                 <div className="scroll-indicator">
-                    <span>Scroll to explore</span>
                 </div>
             )}
             
@@ -132,8 +131,6 @@ const Hero = ({
                     </button>
                 ))}
             </div>
-
-            {/* Side Navigation Arrows */}
             
             
         </div>

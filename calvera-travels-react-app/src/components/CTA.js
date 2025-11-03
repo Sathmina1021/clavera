@@ -5,16 +5,34 @@ const CTA = () => {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (email) {
-            setSubmitted(true);
-            setTimeout(() => {
-                setEmail('');
-                setSubmitted(false);
-            }, 5000);
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    try {
+        const res = await fetch("http://localhost:4000/api/v1/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+            setEmail("");
+            setSubmitted(false);
+        }, 5000);
+        } else {
+        alert(data.message || "Subscription failed. Try again.");
         }
+    } catch (err) {
+        console.error("❌ Error subscribing:", err);
+        alert("Could not connect to the server.");
+    }
     };
+
 
     return (
         <section className="cta-section">
@@ -30,7 +48,7 @@ const CTA = () => {
                     <>
                         <div className="cta-info-badge">
                             <i className="fas fa-star"></i>
-                            <span>Join 10,000+ Happy Travelers</span>
+                            <span>Your Adventure Begins with Us</span>
                         </div>
                         
                         <h2>
