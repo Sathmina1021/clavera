@@ -1,4 +1,3 @@
-// src/components/SearchModal.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./SearchModal.css";
 
@@ -10,7 +9,9 @@ export default function SearchModal({ isOpen, onClose }) {
   const hitsMapRef = useRef(new Map()); // id -> HTMLElement[]
   const lastQueryRef = useRef("");
 
-  // Close on ESC + keyboard nav
+  /* ======================
+     Keyboard Navigation
+  ====================== */
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose?.();
@@ -28,10 +29,14 @@ export default function SearchModal({ isOpen, onClose }) {
         jumpTo(results[activeIdx].id);
       }
     };
+
     window.addEventListener("keydown", onKey, { passive: false });
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, results, activeIdx, onClose]);
 
+  /* ======================
+     Reset on Close
+  ====================== */
   useEffect(() => {
     if (!isOpen) {
       setQuery("");
@@ -42,11 +47,15 @@ export default function SearchModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  const container = useMemo(
-    () => document.querySelector("#app-content"),
-    [isOpen]
-  );
+  /* ======================
+     Cached container
+     (No unnecessary deps)
+  ====================== */
+  const container = useMemo(() => document.querySelector("#app-content"), []);
 
+  /* ======================
+     Utility Functions
+  ====================== */
   function clearHighlights() {
     const marks = document.querySelectorAll("mark.search-highlight");
     marks.forEach((mark) => {
@@ -62,11 +71,13 @@ export default function SearchModal({ isOpen, onClose }) {
     if (!root) return [];
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
-        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (!node.nodeValue || !node.nodeValue.trim())
+          return NodeFilter.FILTER_REJECT;
         const p = node.parentElement;
         if (!p) return NodeFilter.FILTER_REJECT;
         const tag = p.tagName;
-        if (["SCRIPT", "STYLE", "NOSCRIPT"].includes(tag)) return NodeFilter.FILTER_REJECT;
+        if (["SCRIPT", "STYLE", "NOSCRIPT"].includes(tag))
+          return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       },
     });
@@ -80,7 +91,6 @@ export default function SearchModal({ isOpen, onClose }) {
   }
 
   function highlightInto(parentEl, textNode, re, idStr) {
-    // Split & wrap matches for a single text-node
     const text = textNode.nodeValue || "";
     const parts = text.split(re);
     if (parts.length === 1) return false;
@@ -102,6 +112,14 @@ export default function SearchModal({ isOpen, onClose }) {
     return true;
   }
 
+  function escapeHtml(s) {
+    return s
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
   function makeSnippet(el, term) {
     const text = el.innerText || "";
     const idx = text.toLowerCase().indexOf(term.toLowerCase());
@@ -118,14 +136,9 @@ export default function SearchModal({ isOpen, onClose }) {
     )}</mark>${escapeHtml(after)}${end < text.length ? "…" : ""}`;
   }
 
-  function escapeHtml(s) {
-    return s
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;");
-  }
-
+  /* ======================
+     Search Logic
+  ====================== */
   function handleSearch(e) {
     e?.preventDefault?.();
     clearHighlights();
@@ -137,12 +150,15 @@ export default function SearchModal({ isOpen, onClose }) {
       setActiveIdx(-1);
       return;
     }
-    lastQueryRef.current = term;
 
-    const re = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
+    lastQueryRef.current = term;
+    const re = new RegExp(
+      `(${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
 
     const textNodes = getTextNodes(container);
-    const maxNodes = 20000; // safety
+    const maxNodes = 20000;
     let totalMarks = 0;
     const hits = [];
     let idCounter = 1;
@@ -151,7 +167,6 @@ export default function SearchModal({ isOpen, onClose }) {
       const t = textNodes[i];
       if (!re.test(t.nodeValue || "")) continue;
 
-      // ✅ capture parent BEFORE replacing
       const parentEl = t.parentElement;
       if (!parentEl) continue;
 
@@ -159,8 +174,9 @@ export default function SearchModal({ isOpen, onClose }) {
       const created = highlightInto(parentEl, t, re, idStr);
       if (!created) continue;
 
-      // Now collect all marks with this id under the same parent
-      const addedMarks = parentEl.querySelectorAll(`mark.search-highlight[data-hit-id="${idStr}"]`);
+      const addedMarks = parentEl.querySelectorAll(
+        `mark.search-highlight[data-hit-id="${idStr}"]`
+      );
       if (addedMarks.length) {
         hitsMapRef.current.set(idStr, Array.from(addedMarks));
         hits.push({
@@ -177,18 +193,23 @@ export default function SearchModal({ isOpen, onClose }) {
     setActiveIdx(hits.length ? 0 : -1);
   }
 
+  /* ======================
+     Scroll to Match
+  ====================== */
   function jumpTo(id) {
     const marks = hitsMapRef.current.get(id);
     if (!marks || !marks.length) return;
     const target = marks[0];
-
-    target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
     marks.forEach((m) => {
       m.classList.add("pulse");
       setTimeout(() => m.classList.remove("pulse"), 900);
     });
   }
 
+  /* ======================
+     Render
+  ====================== */
   return !isOpen ? null : (
     <div className="search-modal-overlay" onClick={onClose}>
       <div className="search-modal" onClick={(e) => e.stopPropagation()}>

@@ -6,26 +6,33 @@ const Blog = () => {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Generate random particles
     const newParticles = Array.from({ length: 20 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 5,
       duration: 3 + Math.random() * 4,
-      size: 2 + Math.random() * 4
+      size: 2 + Math.random() * 4,
     }));
     setParticles(newParticles);
   }, []);
+
+  // Open social link safely (no anchor needed)
+  const openSocial = (url) => {
+    if (typeof window !== 'undefined') {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <div style={styles.container}>
       {/* Animated Background Gradient */}
       <div style={styles.bgGradient}></div>
-      
+
       {/* Particles */}
       <div style={styles.particlesContainer}>
-        {particles.map(particle => (
+        {particles.map((particle) => (
           <div
             key={particle.id}
             style={{
@@ -34,29 +41,38 @@ const Blog = () => {
               animationDelay: `${particle.delay}s`,
               animationDuration: `${particle.duration}s`,
               width: `${particle.size}px`,
-              height: `${particle.size}px`
+              height: `${particle.size}px`,
             }}
           />
         ))}
       </div>
 
       {/* Main Content */}
-      <div style={{
-        ...styles.content,
-        opacity: mounted ? 1 : 0,
-        transform: mounted ? 'translateY(0)' : 'translateY(30px)'
-      }}>
+      <div
+        style={{
+          ...styles.content,
+          opacity: mounted ? 1 : 0,
+          transform: mounted ? 'translateY(0)' : 'translateY(30px)',
+        }}
+      >
         {/* Icon */}
         <div style={styles.iconContainer}>
-          <svg style={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+          <svg
+            style={styles.icon}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
         </div>
 
         {/* Badge */}
-        <div style={styles.badge}>
+        <div style={styles.badge} aria-label="Coming soon badge">
           <span style={styles.badgeDot}></span>
           Coming Soon
         </div>
@@ -69,21 +85,33 @@ const Blog = () => {
 
         {/* Subtitle */}
         <p style={styles.subtitle}>
-          We're crafting something extraordinary. Our blog is on its way with inspiring travel stories, 
-          expert tips, and island adventures you won't want to miss.
+          We&apos;re crafting something extraordinary. Our blog is on its way with inspiring travel
+          stories, expert tips, and island adventures you won&apos;t want to miss.
         </p>
 
         {/* Email Notification Form */}
         <div style={styles.notifyForm}>
-          <input 
-            type="email" 
-            placeholder="Enter your email" 
+          <input
+            type="email"
+            placeholder="Enter your email"
             style={styles.input}
+            aria-label="Enter your email to get notified"
           />
-          <button style={styles.button}>
+          <button
+            style={styles.button}
+            type="button"
+            onClick={() => alert('Thanks! We will notify you soon.')}
+          >
             Notify Me
-            <svg style={styles.buttonIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+            <svg
+              style={styles.buttonIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </div>
@@ -91,46 +119,84 @@ const Blog = () => {
         {/* Features */}
         <div style={styles.features}>
           <div style={styles.feature}>
-            <svg style={styles.featureIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
+            <svg
+              style={styles.featureIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
             </svg>
             <span>Travel Guides</span>
           </div>
           <div style={styles.feature}>
-            <svg style={styles.featureIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            <svg
+              style={styles.featureIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
             </svg>
             <span>Destination Tips</span>
           </div>
           <div style={styles.feature}>
-            <svg style={styles.featureIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            <svg
+              style={styles.featureIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
             <span>Insider Stories</span>
           </div>
         </div>
 
-        {/* Social Links */}
+        {/* Social Links (use buttons to avoid invalid anchor hrefs) */}
         <div style={styles.social}>
-          <a href="#" style={styles.socialLink}>
-            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon}>
+          <button
+            type="button"
+            aria-label="Open Twitter"
+            style={styles.socialLink}
+            onClick={() => openSocial('https://twitter.com/')}
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon} aria-hidden="true">
               <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
             </svg>
-          </a>
-          <a href="#" style={styles.socialLink}>
-            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon}>
+          </button>
+
+          <button
+            type="button"
+            aria-label="Open Instagram"
+            style={styles.socialLink}
+            onClick={() => openSocial('https://instagram.com/')}
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon} aria-hidden="true">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
-          </a>
-          <a href="#" style={styles.socialLink}>
-            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon}>
+          </button>
+
+          <button
+            type="button"
+            aria-label="Open Facebook"
+            style={styles.socialLink}
+            onClick={() => openSocial('https://facebook.com/')}
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" style={styles.socialIcon} aria-hidden="true">
               <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
             </svg>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -182,7 +248,7 @@ const styles = {
     justifyContent: 'center',
     backgroundColor: '#0a0a0a',
     overflow: 'hidden',
-    padding: '40px 20px'
+    padding: '40px 20px',
   },
   bgGradient: {
     position: 'absolute',
@@ -190,8 +256,9 @@ const styles = {
     left: '-50%',
     width: '200%',
     height: '200%',
-    background: 'radial-gradient(circle at 30% 50%, rgba(255, 107, 0, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(255, 140, 0, 0.1) 0%, transparent 50%)',
-    animation: 'gradientShift 15s ease-in-out infinite'
+    background:
+      'radial-gradient(circle at 30% 50%, rgba(255, 107, 0, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(255, 140, 0, 0.1) 0%, transparent 50%)',
+    animation: 'gradientShift 15s ease-in-out infinite',
   },
   particlesContainer: {
     position: 'absolute',
@@ -199,7 +266,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   particle: {
     position: 'absolute',
@@ -207,7 +274,7 @@ const styles = {
     background: 'linear-gradient(135deg, #ff6b00, #ff8c00)',
     borderRadius: '50%',
     animation: 'particleRise linear infinite',
-    boxShadow: '0 0 10px rgba(255, 107, 0, 0.5)'
+    boxShadow: '0 0 10px rgba(255, 107, 0, 0.5)',
   },
   content: {
     position: 'relative',
@@ -215,17 +282,17 @@ const styles = {
     textAlign: 'center',
     maxWidth: '800px',
     transition: 'all 1s cubic-bezier(0.4, 0, 0.2, 1)',
-    color: 'white'
+    color: 'white',
   },
   iconContainer: {
     marginBottom: '30px',
-    animation: 'float 3s ease-in-out infinite'
+    animation: 'float 3s ease-in-out infinite',
   },
   icon: {
     width: '80px',
     height: '80px',
     color: '#ff6b00',
-    filter: 'drop-shadow(0 0 20px rgba(255, 107, 0, 0.5))'
+    filter: 'drop-shadow(0 0 20px rgba(255, 107, 0, 0.5))',
   },
   badge: {
     display: 'inline-flex',
@@ -240,7 +307,7 @@ const styles = {
     fontWeight: '600',
     letterSpacing: '1px',
     marginBottom: '30px',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   badgeDot: {
     width: '8px',
@@ -248,7 +315,7 @@ const styles = {
     background: '#ff6b00',
     borderRadius: '50%',
     animation: 'pulse 2s ease-in-out infinite',
-    boxShadow: '0 0 10px rgba(255, 107, 0, 0.8)'
+    boxShadow: '0 0 10px rgba(255, 107, 0, 0.8)',
   },
   heading: {
     fontSize: '5rem',
@@ -257,7 +324,7 @@ const styles = {
     lineHeight: '1.1',
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px'
+    gap: '10px',
   },
   headingPrimary: {
     background: 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%)',
@@ -265,7 +332,7 @@ const styles = {
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
     textShadow: '0 10px 40px rgba(255, 107, 0, 0.3)',
-    filter: 'drop-shadow(0 5px 20px rgba(255, 107, 0, 0.3))'
+    filter: 'drop-shadow(0 5px 20px rgba(255, 107, 0, 0.3))',
   },
   headingSecondary: {
     background: 'linear-gradient(135deg, #ff6b00 0%, #ff8c00 100%)',
@@ -273,7 +340,7 @@ const styles = {
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
     position: 'relative',
-    display: 'inline-block'
+    display: 'inline-block',
   },
   subtitle: {
     fontSize: '1.25rem',
@@ -281,7 +348,7 @@ const styles = {
     color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: '50px',
     maxWidth: '600px',
-    margin: '0 auto 50px'
+    margin: '0 auto 50px',
   },
   notifyForm: {
     display: 'flex',
@@ -289,7 +356,7 @@ const styles = {
     maxWidth: '500px',
     margin: '0 auto 60px',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   input: {
     flex: '1',
@@ -302,7 +369,7 @@ const styles = {
     color: 'white',
     fontSize: '1rem',
     outline: 'none',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
   },
   button: {
     display: 'flex',
@@ -317,19 +384,19 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
-    boxShadow: '0 10px 30px rgba(255, 107, 0, 0.4)'
+    boxShadow: '0 10px 30px rgba(255, 107, 0, 0.4)',
   },
   buttonIcon: {
     width: '20px',
     height: '20px',
-    transition: 'transform 0.3s ease'
+    transition: 'transform 0.3s ease',
   },
   features: {
     display: 'flex',
     gap: '40px',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    marginBottom: '50px'
+    marginBottom: '50px',
   },
   feature: {
     display: 'flex',
@@ -342,17 +409,17 @@ const styles = {
     border: '1px solid rgba(255, 255, 255, 0.08)',
     borderRadius: '20px',
     transition: 'all 0.3s ease',
-    minWidth: '140px'
+    minWidth: '140px',
   },
   featureIcon: {
     width: '32px',
     height: '32px',
-    color: '#ff6b00'
+    color: '#ff6b00',
   },
   social: {
     display: 'flex',
     gap: '20px',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   socialLink: {
     width: '50px',
@@ -366,11 +433,12 @@ const styles = {
     borderRadius: '50%',
     color: 'rgba(255, 255, 255, 0.7)',
     transition: 'all 0.3s ease',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    cursor: 'pointer',
   },
   socialIcon: {
     width: '20px',
-    height: '20px'
+    height: '20px',
   },
   cornerDecor: {
     position: 'absolute',
@@ -381,7 +449,7 @@ const styles = {
     background: 'radial-gradient(circle, rgba(255, 107, 0, 0.1), transparent 70%)',
     borderRadius: '50%',
     filter: 'blur(60px)',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   cornerDecor2: {
     position: 'absolute',
@@ -392,8 +460,8 @@ const styles = {
     background: 'radial-gradient(circle, rgba(255, 140, 0, 0.08), transparent 70%)',
     borderRadius: '50%',
     filter: 'blur(60px)',
-    pointerEvents: 'none'
-  }
+    pointerEvents: 'none',
+  },
 };
 
 export default Blog;

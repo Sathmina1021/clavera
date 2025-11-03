@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./DestinationDetail.css";
 import { DESTINATIONS } from "../data/destinationData";
@@ -363,21 +363,31 @@ export default function DestinationDetail() {
 function DestinationCarousel({ id, destination }) {
   const [index, setIndex] = useState(0);
   const timerRef = useRef(null);
+
   const images = useMemo(
-    () => destination.images?.length ? destination.images : [destination.image],
+    () => (destination.images?.length ? destination.images : [destination.image]),
     [destination]
   );
 
+  const stop = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const start = useCallback(() => {
+    stop();
+    timerRef.current = setInterval(
+      () => setIndex((i) => (i + 1) % images.length),
+      5000
+    );
+  }, [images.length, stop]);
+
   useEffect(() => {
     start();
-    return stop;
-  }, [images.length]);
-
-  const start = () => {
-    stop();
-    timerRef.current = setInterval(() => setIndex((i) => (i + 1) % images.length), 5000);
-  };
-  const stop = () => timerRef.current && clearInterval(timerRef.current);
+    return () => stop();
+  }, [start, stop]);
 
   return (
     <section id={id} className="detail-carousel-section">

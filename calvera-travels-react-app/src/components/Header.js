@@ -6,8 +6,6 @@ import {
   FaSearch,
   FaBars,
   FaTimes,
-  FaSun,
-  FaMoon,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import SearchModal from "./SearchModal";
@@ -67,13 +65,6 @@ export default function Header() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
-  const toggleTheme = () => {
-    const next = !dark;
-    setDark(next);
-    document.body.setAttribute("data-theme", next ? "dark" : "light");
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
