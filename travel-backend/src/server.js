@@ -1,10 +1,15 @@
-// travel-backend/src/server.js
-import "dotenv/config";
-import app from "./app.js";
-import { connectDB } from "./config/db.js";
+const app = require('./app');
+const serverless = require('serverless-http');
 
-// Connect to DB once when the function is initialized
-await connectDB(process.env.MONGODB_URI);
+const PORT = process.env.PORT || 4000;
 
-// ✅ Export Express app for Vercel (no app.listen here)
-export default app;
+if (process.env.NODE_ENV !== 'production') {
+  // Run locally (e.g., npm run dev)
+  app.listen(PORT, () => {
+    console.log(`✅ Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Required for Vercel’s serverless environment
+module.exports = app;
+module.exports.handler = serverless(app);
