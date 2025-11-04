@@ -8,19 +8,21 @@ import { notFound, errorHandler } from "./middleware/errorHandler.js";
 
 const app = express();
 
-// === Security & Logging ===
+// === Middleware ===
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// === Allow frontend origins (Vercel + your domain) ===
+// === CORS Setup ===
+// Allow your Vercel frontend & domain access
 const allowedOrigins = [
-  "https://www.calveratravels.com",
+  "https://calvera-travels-react-app.vercel.app",
+  "https://clavera-travels-react-app.vercel.app",
   "https://calveratravels.com",
-  /\.vercel\.app$/, // allow all your Vercel preview URLs
+  "https://www.calveratravels.com",
+  /\.vercel\.app$/, // allow all vercel preview URLs
 ];
-
 app.use(
   cors({
     origin: allowedOrigins,
@@ -28,12 +30,12 @@ app.use(
   })
 );
 
-// === Base API routes ===
+// === Routes ===
 app.use("/api/v1", routes);
 
-// === Health check endpoint ===
+// === Health Check ===
 app.get("/api/health", (req, res) =>
-  res.json({ ok: true, env: process.env.NODE_ENV })
+  res.json({ ok: true, env: process.env.NODE_ENV || "development" })
 );
 
 // === Error Handlers ===

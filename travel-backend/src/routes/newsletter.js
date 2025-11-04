@@ -1,8 +1,10 @@
+// travel-backend/src/routes/newsletter.js
 import express from "express";
-import { subscribeUser } from "../controllers/newsletter.controller.js";
+import { subscribeToNewsletter } from "../controllers/newsletter.controller.js";
 
 const router = express.Router();
 
-router.post("/subscribe", subscribeUser);
+// POST /api/v1/newsletter/subscribe
+router.post("/subscribe", subscribeToNewsletter);
 
 export default router;
