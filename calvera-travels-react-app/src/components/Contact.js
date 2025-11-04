@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./contact.css";
 
+// ✅ Dynamically detect API URL (local for dev, Vercel for prod)
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://clavera-khm3y1ykv-calvera-travels-projects.vercel.app/api/v1";
+
 const Contact = () => {
   // ====== STATE ======
   const [formData, setFormData] = useState({
@@ -42,7 +47,7 @@ const Contact = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/api/v1/contact", {
+      const res = await fetch(`${API_BASE}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -53,42 +58,53 @@ const Contact = () => {
         throw new Error(err?.message || "Failed to send message");
       }
 
-      // Success → show modal + reset form
+      // ✅ Success → show modal + reset form
       setIsModalOpen(true);
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
     } catch (error) {
       console.error("Contact form error:", error);
-      alert("Failed to send message. Please try again or contact us directly.");
+      alert("Failed to send message. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
-  // ====== MODAL a11y (ESC to close, lock body scroll) ======
+  // ====== MODAL ACCESSIBILITY ======
   useEffect(() => {
     const onEsc = (e) => e.key === "Escape" && setIsModalOpen(false);
     document.addEventListener("keydown", onEsc);
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = isModalOpen ? "hidden" : "";
     return () => {
-      document.body.style.overflow = "";
       document.removeEventListener("keydown", onEsc);
+      document.body.style.overflow = "";
     };
   }, [isModalOpen]);
 
+  // ====== CONTACT INFO CARDS ======
   const contactInfo = [
-    { icon: "fa-map-marker-alt", title: "Visit Us", lines: ["508/A, Prithika Mawatha, Pitipana North, Homagama."] },
+    {
+      icon: "fa-map-marker-alt",
+      title: "Visit Us",
+      lines: ["508/A, Prithika Mawatha, Pitipana North, Homagama."],
+    },
     { icon: "fa-phone-alt", title: "Call Us", lines: ["+94 76 191 5100"] },
-    { icon: "fa-envelope", title: "Email Us", lines: ["inquiries@calveratravels.com"] },
+    {
+      icon: "fa-envelope",
+      title: "Email Us",
+      lines: ["inquiries@calveratravels.com"],
+    },
     { icon: "fa-clock", title: "Working Hours", lines: ["24/7"] },
   ];
 
   return (
     <div className="contact-page">
-      {/* Simple header (no hero) */}
+      {/* HEADER */}
       <header className="contact-header">
         <span className="badge">Contact</span>
         <h1>Let’s Plan Your Next Trip</h1>
@@ -96,7 +112,7 @@ const Contact = () => {
         <div className="section-divider" />
       </header>
 
-      {/* Info cards */}
+      {/* CONTACT INFO */}
       <section className="contact-info-section">
         <div className="container">
           <div className="info-grid">
@@ -115,7 +131,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Form */}
+      {/* FORM */}
       <section className="contact-form-section">
         <div className="container">
           <div className="section-header">
@@ -140,8 +156,11 @@ const Contact = () => {
                     className={errors.name ? "error" : ""}
                     autoComplete="name"
                   />
-                  {errors.name && <span className="error-text">{errors.name}</span>}
+                  {errors.name && (
+                    <span className="error-text">{errors.name}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="email">Email Address *</label>
                   <input
@@ -154,7 +173,9 @@ const Contact = () => {
                     className={errors.email ? "error" : ""}
                     autoComplete="email"
                   />
-                  {errors.email && <span className="error-text">{errors.email}</span>}
+                  {errors.email && (
+                    <span className="error-text">{errors.email}</span>
+                  )}
                 </div>
               </div>
 
@@ -171,8 +192,11 @@ const Contact = () => {
                     className={errors.phone ? "error" : ""}
                     autoComplete="tel"
                   />
-                  {errors.phone && <span className="error-text">{errors.phone}</span>}
+                  {errors.phone && (
+                    <span className="error-text">{errors.phone}</span>
+                  )}
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="subject">Subject *</label>
                   <input
@@ -184,7 +208,9 @@ const Contact = () => {
                     onChange={handleChange}
                     className={errors.subject ? "error" : ""}
                   />
-                  {errors.subject && <span className="error-text">{errors.subject}</span>}
+                  {errors.subject && (
+                    <span className="error-text">{errors.subject}</span>
+                  )}
                 </div>
               </div>
 
@@ -199,19 +225,19 @@ const Contact = () => {
                   onChange={handleChange}
                   className={errors.message ? "error" : ""}
                 />
-                {errors.message && <span className="error-text">{errors.message}</span>}
+                {errors.message && (
+                  <span className="error-text">{errors.message}</span>
+                )}
               </div>
 
               <button type="submit" className="btn-submit" disabled={loading}>
                 {loading ? (
                   <>
-                    <i className="fas fa-spinner fa-spin" aria-hidden="true" />
-                    &nbsp;Sending...
+                    <i className="fas fa-spinner fa-spin" /> &nbsp;Sending...
                   </>
                 ) : (
                   <>
-                    <i className="fas fa-paper-plane" aria-hidden="true" />
-                    &nbsp;Send Message
+                    <i className="fas fa-paper-plane" /> &nbsp;Send Message
                   </>
                 )}
               </button>
@@ -220,7 +246,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map */}
+      {/* MAP SECTION */}
       <section className="map-section">
         <div className="map-container">
           <iframe
@@ -234,32 +260,52 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Social */}
+      {/* SOCIAL SECTION */}
       <section className="social-section">
         <div className="container">
           <h2>Follow Our Journey</h2>
           <p>Stay connected with us on social media</p>
           <div className="social-links">
-            <a href="https://web.facebook.com/calveratravels/" className="social-icon facebook" aria-label="Facebook">
-              <i className="fab fa-facebook-f" aria-hidden="true"></i>
+            <a
+              href="https://web.facebook.com/calveratravels/"
+              className="social-icon facebook"
+              aria-label="Facebook"
+            >
+              <i className="fab fa-facebook-f" />
             </a>
-            <a href="https://www.instagram.com/calvera_travels_/" className="social-icon instagram" aria-label="Instagram">
-              <i className="fab fa-instagram" aria-hidden="true"></i>
+            <a
+              href="https://www.instagram.com/calvera_travels_/"
+              className="social-icon instagram"
+              aria-label="Instagram"
+            >
+              <i className="fab fa-instagram" />
             </a>
-            <a href="https://x.com/Calveratravel" className="social-icon x" aria-label="Twitter">
-              <i className="fab fa-twitter" aria-hidden="true"></i>
+            <a
+              href="https://x.com/Calveratravel"
+              className="social-icon x"
+              aria-label="Twitter"
+            >
+              <i className="fab fa-twitter" />
             </a>
-            <a href="https://www.linkedin.com/company/calvera-travels-pvt-ltd/?viewAsMember=true" className="social-icon linkedin" aria-label="LinkedIn">
-              <i className="fab fa-linkedin-in" aria-hidden="true"></i>
+            <a
+              href="https://www.linkedin.com/company/calvera-travels-pvt-ltd/?viewAsMember=true"
+              className="social-icon linkedin"
+              aria-label="LinkedIn"
+            >
+              <i className="fab fa-linkedin-in" />
             </a>
-            <a href="https://www.youtube.com/@CalveraTravels" className="social-icon youtube" aria-label="YouTube">
-              <i className="fab fa-youtube" aria-hidden="true"></i>
+            <a
+              href="https://www.youtube.com/@CalveraTravels"
+              className="social-icon youtube"
+              aria-label="YouTube"
+            >
+              <i className="fab fa-youtube" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* ====== THANK YOU MODAL (built-in) ====== */}
+      {/* THANK YOU MODAL */}
       {isModalOpen && (
         <div
           className="modal-overlay"
@@ -283,10 +329,14 @@ const Contact = () => {
 
             <h3 className="modal-title">Thank you for contacting us!</h3>
             <p className="modal-text">
-              Our team will reach you soon. We&apos;ve also sent a confirmation email.
+              Our team will reach you soon. We&apos;ve also sent a confirmation
+              email.
             </p>
 
-            <button className="btn-submit modal-ok" onClick={() => setIsModalOpen(false)}>
+            <button
+              className="btn-submit modal-ok"
+              onClick={() => setIsModalOpen(false)}
+            >
               Okay, got it
             </button>
           </div>

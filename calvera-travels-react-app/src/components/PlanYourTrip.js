@@ -1,92 +1,98 @@
 import React, { useState } from "react";
-import Hero from "./Hero"; // Import the Hero component
+import Hero from "./Hero";
 import "./PlanYourTrip.css";
 import tourPackages from "../data/tourPackages";
+
+// ✅ Automatically switch between local & production API URLs
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://clavera-khm3y1ykv-calvera-travels-projects.vercel.app/api/v1";
 
 const PlanYourTrip = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Enhanced hero background images
+  // === HERO BACKGROUNDS ===
   const heroImages = [
     "/images/Planyortrip/PYTBack1.jpg",
     "/images/Planyortrip/PYTBack2.jpg",
     "/images/Planyortrip/PYTBack.jpg",
   ];
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const data = new FormData(e.target);
+  // === SUBMIT HANDLER ===
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
 
-  // Convert FormData → plain object
-  const formObject = {
-    tripType: [],
-    destinations: [],
-    experiences: [],
-  };
+    // Convert FormData → object
+    const formObject = {
+      tripType: [],
+      destinations: [],
+      experiences: [],
+    };
 
-  data.forEach((value, key) => {
-    if (["tripType", "destinations", "experiences"].includes(key)) {
-      formObject[key].push(value);
-    } else {
-      formObject[key] = value;
-    }
-  });
-
-  // ✅ Add the date conversion here
-  if (data.get("arrivalDate")) {
-    formObject.arrivalDate = new Date(data.get("arrivalDate"));
-  }
-  if (data.get("departureDate")) {
-    formObject.departureDate = new Date(data.get("departureDate"));
-  }
-
-  // Add a few defaults
-  formObject.sourcePage = "plan-trip";
-  formObject.agreePrivacy = data.get("agreePrivacy") ? true : false;
-  formObject.agreeTerms = data.get("agreeTerms") ? true : false;
-
-  console.log("Submitting form:", formObject);
-
-  try {
-    const res = await fetch("http://localhost:4000/api/v1/inquiries", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formObject),
+    data.forEach((value, key) => {
+      if (["tripType", "destinations", "experiences"].includes(key)) {
+        formObject[key].push(value);
+      } else {
+        formObject[key] = value;
+      }
     });
 
-    if (!res.ok) throw new Error("Failed to submit");
-    const result = await res.json();
-    console.log("✅ Backend response:", result);
-    setIsSubmitted(true);
+    // Convert dates to ISO strings for backend
+    if (data.get("arrivalDate")) {
+      formObject.arrivalDate = new Date(data.get("arrivalDate")).toISOString();
+    }
+    if (data.get("departureDate")) {
+      formObject.departureDate = new Date(data.get("departureDate")).toISOString();
+    }
 
-    // Reset form
-    e.target.reset();
-    setTimeout(() => setIsSubmitted(false), 5000);
-  } catch (err) {
-    console.error("❌ Error submitting:", err);
-    alert("Something went wrong while submitting. Please try again.");
-  }
-};
+    // Add flags
+    formObject.sourcePage = "plan-trip";
+    formObject.agreePrivacy = !!data.get("agreePrivacy");
+    formObject.agreeTerms = !!data.get("agreeTerms");
 
+    console.log("📤 Submitting inquiry:", formObject);
+
+    try {
+      const res = await fetch(`${API_BASE}/inquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formObject),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit form");
+      const result = await res.json();
+      console.log("✅ Inquiry submitted:", result);
+
+      setIsSubmitted(true);
+      e.target.reset();
+
+      // Reset success message after 5s
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (err) {
+      console.error("❌ Error submitting:", err);
+      alert("Something went wrong while submitting. Please try again.");
+    }
+  };
 
   return (
     <div className="plan-trip-page">
-      {/* Hero Section with custom backgrounds */}
-      <Hero 
+      {/* === HERO SECTION === */}
+      <Hero
         images={heroImages}
         title="Plan Your Dream Trip"
         highlightText="Tailored Just For You"
         subtitle="Fill out the form and our travel experts will craft the perfect itinerary"
         badge="Personalized Planning"
-        primaryButton={{ 
-          text: "Start Planning", 
-          link: "#travel-form", 
-          icon: "fa-clipboard-list" 
+        primaryButton={{
+          text: "Start Planning",
+          link: "#travel-form",
+          icon: "fa-clipboard-list",
         }}
-        secondaryButton={{ 
-          text: "View Packages", 
-          link: "/tours", 
-          icon: "fa-gift" 
+        secondaryButton={{
+          text: "View Packages",
+          link: "/tours",
+          icon: "fa-gift",
         }}
         showFeatures={true}
         showScrollIndicator={true}
@@ -96,7 +102,7 @@ const handleSubmit = async (e) => {
         <div className="section">
           <h2 className="section-title">Your Travel Preferences</h2>
 
-          {/* Tour Packages Scroll Bar */}
+          {/* === TOUR PACKAGES PREVIEW === */}
           <div className="tour-scroll-bar">
             <div className="scroll-content">
               {tourPackages.map((tour) => (
@@ -112,6 +118,7 @@ const handleSubmit = async (e) => {
             </div>
           </div>
 
+          {/* === SUCCESS MESSAGE === */}
           {isSubmitted ? (
             <div className="success-message">
               <div className="success-icon">
@@ -124,8 +131,9 @@ const handleSubmit = async (e) => {
               </p>
             </div>
           ) : (
+            /* === TRAVEL FORM === */
             <form id="travel-form" onSubmit={handleSubmit}>
-              {/* 1. Trip Type */}
+              {/* 1️⃣ Trip Type */}
               <div className="form-card">
                 <h3>What type of trip are you planning?</h3>
                 <div className="checkbox-grid">
@@ -145,7 +153,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-              {/* 2. Destinations */}
+              {/* 2️⃣ Destinations */}
               <div className="form-card">
                 <h3>Which destinations are you most interested in?</h3>
                 <div className="checkbox-grid">
@@ -167,7 +175,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-              {/* 3. Experiences */}
+              {/* 3️⃣ Experiences */}
               <div className="form-card">
                 <h3>What activities or experiences interest you most?</h3>
                 <div className="checkbox-grid">
@@ -189,7 +197,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-              {/* 4. Personal Details */}
+              {/* 4️⃣ Personal Details */}
               <div className="form-card">
                 <h3>Fill Your Details</h3>
 
@@ -203,6 +211,7 @@ const handleSubmit = async (e) => {
                       <option value="Miss">Miss</option>
                     </select>
                   </div>
+
                   <div className="form-group">
                     <label>Full Name *</label>
                     <input
@@ -224,6 +233,7 @@ const handleSubmit = async (e) => {
                       required
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Contact Number *</label>
                     <input
@@ -245,6 +255,7 @@ const handleSubmit = async (e) => {
                       required
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Expected Number of Days *</label>
                     <input
@@ -262,6 +273,7 @@ const handleSubmit = async (e) => {
                     <label>Arrival Date</label>
                     <input type="date" name="arrivalDate" />
                   </div>
+
                   <div className="form-group">
                     <label>Departure Date</label>
                     <input type="date" name="departureDate" />
@@ -279,9 +291,15 @@ const handleSubmit = async (e) => {
                       required
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Number of Children</label>
-                    <input type="number" name="children" min="0" placeholder="0" />
+                    <input
+                      type="number"
+                      name="children"
+                      min="0"
+                      placeholder="0"
+                    />
                   </div>
                 </div>
 
@@ -299,12 +317,14 @@ const handleSubmit = async (e) => {
 
                 <div className="terms-box">
                   <label>
-                    <input type="checkbox" name="agreePrivacy" required /> I agree
-                    to the <a href="/privacy-policy">Privacy Policy</a>
+                    <input type="checkbox" name="agreePrivacy" required /> I
+                    agree to the{" "}
+                    <a href="/privacy-policy">Privacy Policy</a>
                   </label>
                   <label>
-                    <input type="checkbox" name="agreeTerms" required /> I agree to
-                    the <a href="/terms-and-condition">Terms & Conditions</a>
+                    <input type="checkbox" name="agreeTerms" required /> I agree
+                    to the{" "}
+                    <a href="/terms-and-condition">Terms & Conditions</a>
                   </label>
                 </div>
               </div>

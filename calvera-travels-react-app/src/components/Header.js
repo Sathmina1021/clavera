@@ -204,7 +204,12 @@ export default function Header() {
                   Contact Us
                 </Link>
               </li>
-              {/* <li>
+              <li>
+                <Link to="/" onClick={() => setMenuOpen(false)}>
+                  Home
+                </Link>
+              </li>
+              <li>
                 <Link to="/AboutUs" onClick={() => setMenuOpen(false)}>
                   About Us
                 </Link>
@@ -228,7 +233,12 @@ export default function Header() {
                 <Link to="/blog" onClick={() => setMenuOpen(false)}>
                   Blog
                 </Link>
-              </li> */}
+              <li>
+                <Link to="/Contact" onClick={() => setMenuOpen(false)}>
+                  Contact Us
+                </Link>
+              </li>                
+              </li>
             </ul>
           </div>
         </nav>

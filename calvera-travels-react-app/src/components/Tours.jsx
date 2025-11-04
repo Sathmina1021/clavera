@@ -2,39 +2,38 @@ import React, { useEffect, useState } from "react";
 import Hero from "./Hero";
 import "./Tours.css";
 
+// ✅ Dynamic backend URL (works for both dev & production)
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://clavera-khm3y1ykv-calvera-travels-projects.vercel.app/api/v1";
+
 // =======================================================================
 // SMALL POPUP: Thank You
 // =======================================================================
-const ConfirmationPopup = ({ onClose }) => {
-  return (
-    <div className="popup-overlay" onClick={onClose}>
-      <div
-        className="popup-content small-popup"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className="popup-close" onClick={onClose}>
-          <i className="fas fa-times"></i>
+const ConfirmationPopup = ({ onClose }) => (
+  <div className="popup-overlay" onClick={onClose}>
+    <div className="popup-content small-popup" onClick={(e) => e.stopPropagation()}>
+      <button className="popup-close" onClick={onClose}>
+        <i className="fas fa-times"></i>
+      </button>
+
+      <div className="popup-body">
+        <h2 className="ty-title">
+          <i className="fas fa-envelope-open-text"></i> Thank you for choosing Calvera!
+        </h2>
+        <p className="ty-text">
+          Your booking request has been received. Our travel crew will contact you
+          shortly to confirm your itinerary and final details. We’re excited to plan
+          your dream adventure in Sri Lanka!
+        </p>
+
+        <button onClick={onClose} className="btn-primary center-btn">
+          <i className="fas fa-arrow-left"></i> Return to Tours
         </button>
-
-        <div className="popup-body">
-          <h2 className="ty-title">
-            <i className="fas fa-envelope-open-text"></i>
-            Thank you for choosing Calvera!
-          </h2>
-          <p className="ty-text">
-            Your booking request has been received. Our travel crew will contact you
-            shortly to confirm your itinerary and final details. We’re excited to plan
-            your dream adventure in Sri Lanka!
-          </p>
-
-          <button onClick={onClose} className="btn-primary center-btn">
-            <i className="fas fa-arrow-left"></i> Return to Tours
-          </button>
-        </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 // =======================================================================
 // POPUP: Booking Form
@@ -60,8 +59,7 @@ const BookingFormPopup = ({ pkg, onSubmit, onClose }) => {
     setLoading(true);
 
     try {
-      // Send to your backend API
-      const res = await fetch("http://localhost:4000/api/v1/tour/book", {
+      const res = await fetch(`${API_BASE}/tour/book`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -72,16 +70,16 @@ const BookingFormPopup = ({ pkg, onSubmit, onClose }) => {
           travelers: Number(formData.travellers || 1),
           notes: formData.note,
           tourId: pkg?.id,
-          tourName: pkg?.title, // so emails show the package name
+          tourName: pkg?.title,
         }),
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data?.message || "Booking failed");
 
-      onSubmit?.(); // Show thank-you popup
+      onSubmit?.(); // Trigger confirmation popup
     } catch (err) {
-      console.error("Booking error:", err);
+      console.error("❌ Booking error:", err);
       alert(err.message || "Could not connect to server.");
     } finally {
       setLoading(false);
@@ -92,15 +90,12 @@ const BookingFormPopup = ({ pkg, onSubmit, onClose }) => {
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div
-        className="popup-content"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="popup-close" onClick={onClose}>
           <i className="fas fa-times"></i>
         </button>
 
-        {/* Header (Hero) — not scrollable */}
+        {/* HEADER */}
         <div className="popup-header">
           <img src={pkg.image} alt={pkg.imageAlt} />
           <div className="popup-title">
@@ -109,7 +104,7 @@ const BookingFormPopup = ({ pkg, onSubmit, onClose }) => {
           </div>
         </div>
 
-        {/* Scrollable body only */}
+        {/* SCROLLABLE FORM */}
         <div className="popup-body scrollable-popup">
           <h3 className="form-heading">Fill these fields to receive your package</h3>
           <form className="booking-form" onSubmit={handleSubmit}>
@@ -212,22 +207,18 @@ const BookingFormPopup = ({ pkg, onSubmit, onClose }) => {
 };
 
 // =======================================================================
-// POPUP: Package Details (View Summary)
+// POPUP: Package Details
 // =======================================================================
 const PackagePopup = ({ pkg, onClose, onReceiveNow }) => {
   if (!pkg) return null;
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div
-        className="popup-content"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="popup-close" onClick={onClose}>
           <i className="fas fa-times"></i>
         </button>
 
-        {/* Header (Hero) — not scrollable */}
         <div className="popup-header">
           <img src={pkg.image} alt={pkg.imageAlt} />
           <div className="popup-title">
@@ -236,7 +227,6 @@ const PackagePopup = ({ pkg, onClose, onReceiveNow }) => {
           </div>
         </div>
 
-        {/* Scrollable details */}
         <div className="popup-body scrollable-popup">
           <ul className="popup-details">
             <li>
@@ -289,7 +279,7 @@ const Tours = () => {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // Hide header & lock body scroll when any popup is shown
+  // Lock body scroll when popups are active
   useEffect(() => {
     const anyOpen = showPackagePopup || showBookingForm || showConfirmation;
     document.body.classList.toggle("popup-active", anyOpen);
@@ -306,6 +296,7 @@ const Tours = () => {
     "/images/Tours/tours hero back/tourshero (3).jpg",
   ];
 
+  // === PACKAGE DATA ===
   const packages = [
     {
       id: "romantic-escape",
@@ -315,38 +306,28 @@ const Tours = () => {
       idealFor: "Honeymooners & Couples",
       price: "USD 1,820 per person",
       summary:
-        "Embark on an unforgettable honeymoon through Sri Lanka's most romantic landscapes. From the ancient majesty of Sigiriya to the misty hills of Ella and the wild wonders of Yala, each day is filled with love, discovery, and relaxation by golden beaches.",
+        "Embark on an unforgettable honeymoon through Sri Lanka's most romantic landscapes. From Sigiriya to Ella, Yala, and golden beaches, every moment celebrates love and discovery.",
       highlights: [
         "Climb the legendary Sigiriya Rock Fortress",
         "Enjoy a Minneriya elephant safari",
         "Visit the Temple of the Tooth Relic in Kandy",
         "Ride the scenic train to Ella",
-        "Experience a Yala National Park safari",
+        "Experience Yala safari",
         "Unwind on golden beaches under tropical sunsets",
       ],
       theme: "romantic",
-      image:
-        "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
-      hoverImage:
-        "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
+      image: "/images/Tours/Calvera pakage/Calvera Honeymoon/Calvera Hoooneymoon.jpg",
       imageAlt: "Romantic couple in Sri Lanka",
     },
     {
       id: "cultural-essence",
       title: "Calvera Cultural Essence",
       duration: "6 Days / 5 Nights",
-      destinations: [
-        "Kandy",
-        "Sigiriya",
-        "Anuradhapura",
-        "Polonnaruwa",
-        "Hiriwadunna",
-        "Negombo",
-      ],
+      destinations: ["Kandy", "Sigiriya", "Anuradhapura", "Polonnaruwa", "Hiriwadunna", "Negombo"],
       idealFor: "Culture Lovers & Explorers",
       price: "USD 930 per person",
       summary:
-        "Step into the heart of Sri Lanka's cultural heritage. Explore sacred temples, ancient capitals, and traditional village life as you uncover the timeless beauty of this island's past and present.",
+        "Step into the heart of Sri Lanka's cultural heritage. Explore sacred temples, ancient capitals, and village life while uncovering the timeless beauty of this island nation.",
       highlights: [
         "Visit Temple of the Tooth Relic",
         "Climb Sigiriya Fortress",
@@ -363,21 +344,19 @@ const Tours = () => {
       title: "Calvera Wild Trails",
       duration: "8 Days / 7 Nights",
       destinations: ["Wilpattu", "Kandy", "Nuwara Eliya", "Yala", "Mirissa"],
-      idealFor:
-        "Nature Lovers, Wildlife Enthusiasts & Adventure Seekers",
+      idealFor: "Nature Lovers & Adventure Seekers",
       price: "USD 1,560 per person",
       summary:
-        "Journey deep into the wild heart of Sri Lanka with this thrilling nature and wildlife adventure. From leopard safaris to whale watching, every moment immerses you in breathtaking natural beauty.",
+        "Journey deep into the wild heart of Sri Lanka with this thrilling nature and wildlife adventure. From leopard safaris to whale watching — pure natural wonder awaits.",
       highlights: [
         "Safari in Wilpattu & Yala",
-        "Trekking at Udawattekele, Moon Plains & Horton Plains",
+        "Trekking at Horton Plains & Moon Plains",
         "Visit Temple of the Tooth Relic",
         "Whale watching in Mirissa",
-        "Relax on golden beaches at sunset",
+        "Relax on golden beaches",
       ],
       theme: "adventure",
-      image:
-        "/images/Tours/Calvera pakage/Calvera Wild/henning-borgersen-Kr_RijTa0kg-unsplash.jpg",
+      image: "/images/Tours/Calvera pakage/Calvera Wild/henning-borgersen-Kr_RijTa0kg-unsplash.jpg",
       imageAlt: "Safari jeep exploring the wild",
     },
     {
@@ -388,7 +367,7 @@ const Tours = () => {
       idealFor: "Couples, Families & Beach Lovers",
       price: "USD 860 per person",
       summary:
-        "Escape to Sri Lanka's southern coast for pure relaxation. From Galle's golden beaches to Mirissa's whale watching and Colombo's modern charm, experience sunshine, serenity, and sea breezes.",
+        "Escape to Sri Lanka's southern coast for pure relaxation. From Galle's golden beaches to Mirissa's whales and Colombo's charm, it’s all sunshine and serenity.",
       highlights: [
         "Relax on beaches of Galle",
         "Enjoy sunset walks at Galle Fort",
@@ -397,27 +376,18 @@ const Tours = () => {
         "Explore vibrant Colombo",
       ],
       theme: "coastal",
-      image:
-        "/images/Tours/Calvera pakage/Calvera Coastal Bliss (Leisure & Beach Relaxation/costalbills1.jpg",
+      image: "/images/Tours/Calvera pakage/Calvera Coastal Bliss (Leisure & Beach Relaxation/costalbills1.jpg",
       imageAlt: "Beautiful coastal beach view",
     },
     {
       id: "signature-journey",
       title: "Calvera Signature Journey",
       duration: "10 Days / 9 Nights",
-      destinations: [
-        "Dambulla",
-        "Sigiriya",
-        "Kandy",
-        "Nuwara Eliya",
-        "Udawalawe",
-        "Galle",
-        "Colombo",
-      ],
+      destinations: ["Dambulla", "Sigiriya", "Kandy", "Nuwara Eliya", "Udawalawe", "Galle", "Colombo"],
       idealFor: "Couples, Families & Explorers",
       price: "USD 1,760 per person",
       summary:
-        "Discover Sri Lanka's perfect balance of culture, nature, and relaxation. Explore temples, tea plantations, safaris, and beaches — each crafted to create your personal signature experience.",
+        "Discover Sri Lanka's perfect balance of culture, nature, and relaxation. Explore temples, tea plantations, safaris, and beaches — your personal signature experience.",
       highlights: [
         "Climb Sigiriya Fortress",
         "Visit Dambulla Cave Temple & Temple of the Tooth",
@@ -428,13 +398,11 @@ const Tours = () => {
       ],
       theme: "signature",
       image: "/images/Tours/Calvera pakage/Calvera Signature/Signature.jpg",
-      hoverImage:
-        "/images/Tours/Calvera pakage/Calvera Signature/Signature.jpg",
       imageAlt: "Traveler exploring Sri Lanka",
     },
   ];
 
-  // Flow handlers
+  // === FLOW HANDLERS ===
   const openSummary = (pkg) => {
     setSelectedPackage(pkg);
     setShowPackagePopup(true);
@@ -447,9 +415,7 @@ const Tours = () => {
     setShowPackagePopup(false);
     setShowBookingForm(true);
   };
-  const closeBookingForm = () => {
-    setShowBookingForm(false);
-  };
+  const closeBookingForm = () => setShowBookingForm(false);
   const onBooked = () => {
     setShowBookingForm(false);
     setShowConfirmation(true);
@@ -499,17 +465,11 @@ const Tours = () => {
       </section>
 
       {showPackagePopup && (
-        <PackagePopup
-          pkg={selectedPackage}
-          onClose={closeSummary}
-          onReceiveNow={receiveNow}
-        />
+        <PackagePopup pkg={selectedPackage} onClose={closeSummary} onReceiveNow={receiveNow} />
       )}
-
       {showBookingForm && selectedPackage && (
         <BookingFormPopup pkg={selectedPackage} onSubmit={onBooked} onClose={closeBookingForm} />
       )}
-
       {showConfirmation && <ConfirmationPopup onClose={closeConfirmation} />}
     </div>
   );
