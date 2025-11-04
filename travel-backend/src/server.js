@@ -3,16 +3,8 @@ import "dotenv/config";
 import app from "./app.js";
 import { connectDB } from "./config/db.js";
 
-const PORT = process.env.PORT || 4000;
+// Connect to DB once when the function is initialized
+await connectDB(process.env.MONGODB_URI);
 
-(async () => {
-  try {
-    await connectDB(process.env.MONGODB_URI);
-    app.listen(PORT, () =>
-      console.log(`🚀 Local server running on http://localhost:${PORT}`)
-    );
-  } catch (err) {
-    console.error("❌ Failed to start server:", err);
-    process.exit(1);
-  }
-})();
+// ✅ Export Express app for Vercel (no app.listen here)
+export default app;
